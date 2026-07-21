@@ -1,0 +1,13 @@
+{
+  "name": "todo-app-root",
+  "version": "1.0.0",
+  "description": "True Serverless Todo App on Firebase",
+  "scripts": {
+    "build:web": "npm --prefix web run build",
+    "deploy": "npm run build:web && firebase deploy",
+    "deploy:hosting": "npm run build:web && firebase deploy --only hosting",
+    "deploy:firestore": "firebase deploy --only firestore"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+    match /tasks/{taskId} {
+      // Allow reading if authenticated
+      allow read: if request.auth != null;
+      
+      // Allow creating if they set themselves as the owner
+      allow create: if request.auth != null && request.resource.data.user_id == request.auth.uid;
+      
+      // Allow updating if authenticated
+      allow update: if request.auth != null;
+      
+      // Allow deleting if authenticated
+      allow delete: if request.auth != null;
+    }
+  }
+}
