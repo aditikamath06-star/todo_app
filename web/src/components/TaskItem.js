@@ -108,17 +108,17 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit, currentUser
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-all">
+      <div className="flex gap-1 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all">
         <button
-          onClick={() => onEdit(task)}
-          className="p-2 text-slate-300 hover:text-primary transition-colors"
+          onClick={(e) => { e.stopPropagation(); onEdit(task); }}
+          className="p-2 text-slate-400 hover:text-[#7c3aed] transition-colors"
         >
           <Edit2 size={18} />
         </button>
-        {(!task.user_id || !currentUser?.id || task.user_id === currentUser.id) && (
+        {(!task.user_id || !currentUser?.uid || task.user_id === currentUser.uid) && (
           <button
-            onClick={() => onDelete(task.id)}
-            className="p-2 text-slate-300 hover:text-red-500 transition-colors"
+            onClick={(e) => { e.stopPropagation(); onDelete(task.id); }}
+            className="p-2 text-slate-400 hover:text-red-500 transition-colors"
           >
             <Trash2 size={18} />
           </button>

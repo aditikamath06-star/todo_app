@@ -12,7 +12,7 @@ export default function Sidebar({
   pendingCount = 0,
   user,
   isDarkMode,
-  setIsDarkMode,
+  toggleTheme,
   onLogout
 }) {
   const tabs = [
@@ -122,7 +122,7 @@ export default function Sidebar({
         {/* Action Buttons */}
         <div className="flex gap-2 flex-col group-hover:flex-row transition-all duration-300">
           <button
-            onClick={() => setIsDarkMode(!isDarkMode)}
+            onClick={toggleTheme}
             className="w-full group-hover:flex-1 flex items-center justify-center group-hover:justify-start h-12 group-hover:h-10 group-hover:px-4 bg-slate-50 dark:bg-white/5 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-xl text-slate-500 dark:text-slate-400 hover:text-[#7c3aed] dark:hover:text-[#a78bfa] transition-all duration-300"
           >
             <div className="relative shrink-0 flex items-center justify-center">

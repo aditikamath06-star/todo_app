@@ -4,9 +4,12 @@
   "private": true,
   "dependencies": {
     "clsx": "^1.2.1",
+    "express": "^5.2.1",
     "firebase": "^12.16.0",
     "framer-motion": "^10.12.16",
+    "jsdom": "^29.1.1",
     "lucide-react": "^0.244.0",
+    "puppeteer": "^25.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",

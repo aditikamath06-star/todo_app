@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Search, Moon, Sun, Trash2, List, Menu, LogOut } from 'lucide-react';
 import { useLocalStorage } from './hooks/useLocalStorage';
-import WelcomeScreen from './components/WelcomeScreen';
+
 import LoginScreen from './components/LoginScreen';
 import ProgressDashboard from './components/ProgressDashboard';
 import TaskItem from './components/TaskItem';
@@ -10,7 +10,7 @@ import AddTaskModal from './components/AddTaskModal';
 import Sidebar from './components/Sidebar';
 import RequestsView from './components/RequestsView';
 import SettingsView from './components/SettingsView';
-import { auth, db } from './firebase';
+import { auth, db, logout as firebaseLogout } from './firebase';
 import { collection, query, where, getDocs, doc, getDoc, updateDoc, deleteDoc, addDoc } from 'firebase/firestore';
 
 export default function App() {
@@ -23,7 +23,7 @@ export default function App() {
   const [isDarkMode, setIsDarkMode] = useLocalStorage('darkMode', systemPrefersDark);
   const [isLoggedIn, setIsLoggedIn] = useLocalStorage('loggedIn', false);
 
-  const [showWelcome, setShowWelcome] = useState(!isLoggedIn);
+
   const [activeTab, setActiveTab] = useLocalStorage('activeTab', 'tasks');
 
   // App State
@@ -49,14 +49,17 @@ export default function App() {
     }
   }, [toast]);
 
-  const logout = useCallback(async () => {
-    setIsLoggedIn(false);
-    setSession(null);
-    localStorage.removeItem('user');
-    localStorage.removeItem('userAvatar');
-    localStorage.removeItem('token');
-    window.location.reload();
-  }, [setIsLoggedIn]);
+  const toggleTheme = useCallback(async () => {
+    const newTheme = !isDarkMode;
+    setIsDarkMode(newTheme);
+    if (auth.currentUser) {
+      try {
+        await updateDoc(doc(db, 'users', auth.currentUser.uid), { theme: newTheme ? 'dark' : 'light' });
+      } catch (e) {
+        console.error("Failed to sync theme to Firebase", e);
+      }
+    }
+  }, [isDarkMode, setIsDarkMode]);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -120,9 +123,11 @@ export default function App() {
              if (userDoc.exists()) {
                const data = userDoc.data();
                if (data.theme) setIsDarkMode(data.theme === 'dark');
-               setCurrentUser(prev => ({ ...data, profilePic: data.profilePic || prev?.profilePic }));
-               const currentPic = JSON.parse(localStorage.getItem('user') || '{}').profilePic;
-               localStorage.setItem('user', JSON.stringify({ ...data, profilePic: data.profilePic || currentPic }));
+               setCurrentUser(prev => {
+                 const updatedUser = { ...data, profilePic: data.profilePic || prev?.profilePic, uid: user.uid };
+                 localStorage.setItem('user', JSON.stringify(updatedUser));
+                 return updatedUser;
+               });
              }
           });
         } catch (err) {
@@ -206,7 +211,7 @@ export default function App() {
       if (creatorDoc.exists()) payload.creator_name = creatorDoc.data().username || 'Someone';
 
       const docRef = await addDoc(collection(db, 'tasks'), payload);
-      setTasks([...tasks, { ...payload, id: docRef.id }]);
+      setTasks(prev => [...prev, { ...payload, id: docRef.id }]);
 
       if (invitees.length > 0) {
         showToast(`Task created & invite sent to ${invitees.join(', ')} 📩`);
@@ -228,14 +233,14 @@ export default function App() {
     if (!task) return;
     const updatedTask = { ...task, completed: !task.completed };
     
-    setTasks(tasks.map(t => t.id === id ? updatedTask : t));
+    setTasks(prev => prev.map(t => t.id === id ? updatedTask : t));
     
     try {
       await updateDoc(doc(db, 'tasks', String(id)), { completed: updatedTask.completed });
       showToast(updatedTask.completed ? 'Task completed 🎉' : 'Task unmarked ⏪');
     } catch (e) {
       console.error(e);
-      setTasks(tasks.map(t => t.id === id ? task : t));
+      setTasks(prev => prev.map(t => t.id === id ? task : t));
       showToast('Error updating task: ' + e.message);
     }
   };
@@ -245,9 +250,10 @@ export default function App() {
       showToast('Error: task ID is undefined!');
       return;
     }
+    console.log("Attempting to delete task with ID:", id);
     try {
       await deleteDoc(doc(db, 'tasks', String(id)));
-      setTasks(tasks.filter(t => t.id !== id));
+      setTasks(prev => prev.filter(t => t.id !== id));
       showToast('Task deleted 🗑️');
     } catch (e) {
       console.error(e);
@@ -290,7 +296,7 @@ export default function App() {
       }
 
       await updateDoc(doc(db, 'tasks', String(updatedTask.id)), payload);
-      setTasks(tasks.map(t => t.id === updatedTask.id ? { ...payload, id: updatedTask.id } : t));
+      setTasks(prev => prev.map(t => t.id === updatedTask.id ? { ...payload, id: updatedTask.id } : t));
 
       if (emailsChanged && invitees.length > 0) {
         showToast(`Task updated & invite sent to ${invitees.join(', ')} 📩`);
@@ -307,7 +313,7 @@ export default function App() {
     const completedTasks = tasks.filter(t => t.completed && t.id);
     try {
       await Promise.all(completedTasks.map(t => deleteDoc(doc(db, 'tasks', String(t.id)))));
-      setTasks(tasks.filter(t => !t.completed));
+      setTasks(prev => prev.filter(t => !t.completed));
       showToast('Completed tasks cleared 🧹');
     } catch (e) {
       console.error(e);
@@ -345,10 +351,30 @@ export default function App() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await firebaseLogout();
+    } catch (e) {
+      console.error("Firebase logout error:", e);
+    }
+    
+    // Always clear local state
+    setIsLoggedIn(false);
+    setSession(null);
+    setCurrentUser({});
+    setTasks([]);
+    localStorage.removeItem('user');
+    setShowLogoutConfirm(false);
+    setIsMobileMenuOpen(false);
+    showToast('Logged out successfully');
+  };
 
 
-  if (showWelcome && !isLoggedIn) return <WelcomeScreen onGetStarted={() => setShowWelcome(false)} />;
-  if (!isLoggedIn) return <LoginScreen onLoginSuccess={() => setIsLoggedIn(true)} onBack={() => setShowWelcome(true)} />;
+
+
+  if (!isLoggedIn) return (
+    <LoginScreen onLoginSuccess={() => setIsLoggedIn(true)} />
+  );
 
   return (
     <div className={isDarkMode ? 'dark' : ''}>
@@ -367,7 +393,7 @@ export default function App() {
           activeTab={activeTab}
           setActiveTab={setActiveTab}
           isDarkMode={isDarkMode}
-          setIsDarkMode={setIsDarkMode}
+          toggleTheme={toggleTheme}
           onLogout={() => setShowLogoutConfirm(true)}
           stats={stats}
           selectedCategory={selectedCategory}
@@ -384,7 +410,7 @@ export default function App() {
             <header className="lg:hidden flex items-center justify-between mb-8 relative z-10">
               <button onClick={() => setIsMobileMenuOpen(true)} className="p-3 bg-white dark:bg-white/5 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-2xl shadow-sm text-slate-500 dark:text-white"><Menu size={24} /></button>
               <div className="flex gap-2">
-                <button onClick={() => setIsDarkMode(!isDarkMode)} className="p-3 bg-white dark:bg-white/5 backdrop-blur-md border border-slate-200 dark:border-white/10 text-[#7c3aed] rounded-2xl">{isDarkMode ? <Sun size={20} /> : <Moon size={20} />}</button>
+                <button onClick={toggleTheme} className="p-3 bg-white dark:bg-white/5 backdrop-blur-md border border-slate-200 dark:border-white/10 text-[#7c3aed] rounded-2xl">{isDarkMode ? <Sun size={20} /> : <Moon size={20} />}</button>
               </div>
             </header>
 
@@ -449,7 +475,7 @@ export default function App() {
                       <div className="space-y-1">
                         <AnimatePresence mode='popLayout'>
                           {filteredTasks.map(task => <TaskItem key={task.id} task={task} onToggle={toggleTask} onDelete={deleteTask} onEdit={setEditingTask} currentUser={currentUser} />)}
-                          {filteredTasks.length === 0 && <div className="text-center py-20 text-slate-300"><List size={48} className="mx-auto mb-4 opacity-10" /><p className="font-bold text-lg">No tasks here!</p></div>}
+                          {filteredTasks.length === 0 && <div key="empty-state" className="text-center py-20 text-slate-300"><List size={48} className="mx-auto mb-4 opacity-10" /><p className="font-bold text-lg">No tasks here!</p></div>}
                         </AnimatePresence>
                       </div>
                     </div>
@@ -465,14 +491,13 @@ export default function App() {
                 />
               )}
               {activeTab === 'settings' && (
-                <SettingsView
-                  key="settings"
-                  isDarkMode={isDarkMode}
-                  setIsDarkMode={setIsDarkMode}
-                  onLogout={() => setShowLogoutConfirm(true)}
+                <SettingsView 
+                  isDarkMode={isDarkMode} 
+                  toggleTheme={toggleTheme} 
+                  onLogout={handleLogout}
                   showToast={showToast}
-                  onUserUpdated={(newUser) => setCurrentUser(newUser)}
                   user={currentUser}
+                  onUserUpdated={(u) => setCurrentUser(prev => ({...prev, ...u}))}
                 />
               )}
             </AnimatePresence>
@@ -483,6 +508,7 @@ export default function App() {
         <AnimatePresence>
           {activeTab === 'tasks' && (
             <motion.button
+              key="fab-btn"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
@@ -500,13 +526,14 @@ export default function App() {
         <AnimatePresence>
           {(showAddModal || editingTask) && (
             <AddTaskModal
+              key="add-task-modal"
               initialData={editingTask}
               onClose={() => { setShowAddModal(false); setEditingTask(null); }}
               onSubmit={editingTask ? editTask : addTask}
             />
           )}
           {showLogoutConfirm && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div key="logout-modal" className="fixed inset-0 z-50 flex items-center justify-center p-4">
               <motion.div 
                 initial={{ opacity: 0 }} 
                 animate={{ opacity: 1 }} 
@@ -533,10 +560,7 @@ export default function App() {
                     Cancel
                   </button>
                   <button 
-                    onClick={() => {
-                      setShowLogoutConfirm(false);
-                      logout();
-                    }}
+                    onClick={handleLogout}
                     className="flex-1 py-3 rounded-xl font-bold text-white bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600 shadow-lg shadow-red-500/25 transition-all hover:scale-105 active:scale-95"
                   >
                     Log Out
@@ -548,7 +572,7 @@ export default function App() {
           {isMobileMenuOpen && (
             <>
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsMobileMenuOpen(false)} className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden" />
-              <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} className="fixed left-0 top-0 bottom-0 w-72 bg-white dark:bg-[#0c0c11] z-50 lg:hidden p-0"><Sidebar className="w-full h-full" activeTab={activeTab} setActiveTab={(t) => { setActiveTab(t); setIsMobileMenuOpen(false); }} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} onLogout={() => setShowLogoutConfirm(true)} stats={stats} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} pendingCount={requests.length} currentUser={currentUser} avatarUrl={avatarUrl} /></motion.div>
+              <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} className="fixed left-0 top-0 bottom-0 w-72 bg-white dark:bg-[#0c0c11] z-50 lg:hidden p-0"><Sidebar className="w-full h-full" activeTab={activeTab} setActiveTab={(t) => { setActiveTab(t); setIsMobileMenuOpen(false); }} isDarkMode={isDarkMode} toggleTheme={toggleTheme} onLogout={() => { setShowLogoutConfirm(true); setIsMobileMenuOpen(false); }} stats={stats} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} pendingCount={requests.length} currentUser={currentUser} avatarUrl={avatarUrl} /></motion.div>
             </>
           )}
         </AnimatePresence>

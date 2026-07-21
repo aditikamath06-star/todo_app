@@ -1,24 +1,19 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Lock, User, Check, Eye, EyeOff, ChevronLeft } from 'lucide-react';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db, signInWithGoogle } from '../firebase';
+import { CheckCircle2, ExternalLink } from 'lucide-react';
 
-export default function LoginScreen({ onLoginSuccess, onBack }) {
+export default function LoginScreen({ onLoginSuccess }) {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     try {
-
       if (isLogin) {
         await signInWithEmailAndPassword(auth, email, password);
         onLoginSuccess();
@@ -46,10 +41,8 @@ export default function LoginScreen({ onLoginSuccess, onBack }) {
     try {
       const userCredential = await signInWithGoogle();
       const user = userCredential.user;
-      
       const userRef = doc(db, 'users', user.uid);
       const userDoc = await getDoc(userRef);
-      
       if (!userDoc.exists()) {
         await setDoc(userRef, {
           username: user.displayName || user.email.split('@')[0],
@@ -68,180 +61,74 @@ export default function LoginScreen({ onLoginSuccess, onBack }) {
 
   const isFormValid = isLogin 
     ? email.trim().length > 0 && password.trim().length > 0 
-    : email.trim().length > 0 && username.trim().length > 0 && password.trim().length > 0 && password === confirmPassword;
+    : email.trim().length > 0 && username.trim().length > 0 && password.trim().length > 0;
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen p-6 overflow-hidden bg-[#0c0c11]">
+    <div className="flex min-h-screen bg-[#111216] overflow-y-auto text-white">
       
-      {/* Dark Purple Glow */}
-      <div className="absolute top-1/2 left-0 w-[1000px] h-[1000px] bg-purple-600/15 rounded-full blur-[150px] pointer-events-none -translate-x-1/2 -translate-y-1/2" />
-      
-      {/* Back Button */}
-      <button onClick={onBack} className="absolute left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 transition-colors hidden md:flex">
-        <ChevronLeft size={24} />
-      </button>
-
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="relative z-10 w-full max-w-[420px] flex flex-col items-center"
-      >
+      {/* LEFT SIDE - Illustration (Visible only on large screens) */}
+      <div className="hidden lg:flex w-1/2 relative items-center justify-center bg-[#0c0d10] border-r border-white/5 p-12 sticky top-0 h-screen">
+        {/* Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
         
-        {/* Logo Header */}
-        <div className="mb-8 text-center flex flex-col items-center">
-          <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20 mb-4">
-            <div className="w-8 h-8 bg-green-400 rounded-lg flex items-center justify-center shadow-sm">
-              <Check size={20} className="text-white" strokeWidth={3} />
-            </div>
+        {/* Content */}
+        <div className="relative z-10 w-full max-w-[500px] flex flex-col items-center">
+          <div className="w-full aspect-square relative mb-12">
+            <img 
+              src="/premium-todo.png" 
+              alt="3D Illustration" 
+              className="w-full h-full object-contain drop-shadow-2xl"
+            />
           </div>
-          <h1 className="text-[28px] font-bold text-white mb-2">TodoList</h1>
-          <p className="text-sm text-slate-400">Your personal task manager — stay on top of everything.</p>
-        </div>
-
-        {/* Card */}
-        <div className="w-full bg-[#181820] rounded-[2rem] p-6 sm:p-8 border border-white/[0.02] shadow-2xl">
           
-          {/* Segmented Control */}
-          <div className="flex bg-[#111116] rounded-xl p-1 mb-8">
-            <button
-              onClick={() => setIsLogin(true)}
-              className={`flex-1 h-10 rounded-lg font-semibold text-sm transition-all duration-200 ${isLogin ? 'bg-[#7c3aed] text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'}`}
-            >
-              Sign In
-            </button>
-            <button
-              onClick={() => setIsLogin(false)}
-              className={`flex-1 h-10 rounded-lg font-semibold text-sm transition-all duration-200 ${!isLogin ? 'bg-[#7c3aed] text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'}`}
-            >
-              Create Account
-            </button>
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/30">
+                <CheckCircle2 size={24} className="text-white" strokeWidth={2.5} />
+              </div>
+              <h1 className="text-3xl font-bold text-white tracking-tight">TodoList</h1>
+            </div>
+            <p className="text-slate-400 text-base font-medium max-w-sm mx-auto">
+              The easiest way to manage all your daily tasks, boost productivity, and get things done.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* RIGHT SIDE - Form & Footer */}
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 sm:p-12 relative min-h-screen overflow-y-auto">
+        {/* Mobile-only background glow */}
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none lg:hidden" />
+        
+        <div className="flex-1 flex w-full items-center justify-center mt-12 lg:mt-0">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="w-full max-w-[420px] relative z-10"
+          >
+          {/* Mobile branding */}
+          <div className="lg:hidden flex items-center justify-center gap-3 mb-10">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-600/30">
+              <CheckCircle2 size={18} className="text-white" strokeWidth={2.5} />
+            </div>
+            <h1 className="text-2xl font-bold text-white tracking-tight">TodoList</h1>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <AnimatePresence mode='popLayout'>
-              {!isLogin && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden"
-                >
-                  <div className="pb-1">
-                    <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Username</label>
-                    <div className="relative">
-                      <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
-                      <input
-                        type="text"
-                        placeholder="Choose a username"
-                        value={username}
-                        autoComplete="off"
-                        onChange={(e) => setUsername(e.target.value)}
-                        className="w-full h-12 pl-11 pr-4 bg-[#20202a] border border-white/5 rounded-xl focus:border-[#7c3aed]/50 outline-none transition-all text-white font-medium placeholder:text-slate-500/70 text-sm"
-                      />
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+          <h2 className="text-[32px] font-bold text-white mb-2">
+            {isLogin ? 'Login' : 'Create an account'}
+          </h2>
+          
+          <p className="text-slate-400 text-sm font-medium mb-10">
+            {isLogin ? 'Welcome back! Please enter your details.' : 'Sign up to get started'}
+          </p>
 
-            <div>
-              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Email Address</label>
-              <div className="relative">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#e0e7ff] text-indigo-600 rounded-md p-1">
-                  <Mail size={12} strokeWidth={3} />
-                </div>
-                <input
-                  type="text"
-                  placeholder="Enter your email"
-                  value={email}
-                  autoComplete="off"
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full h-12 pl-12 pr-4 bg-[#20202a] border border-white/5 rounded-xl focus:border-[#7c3aed]/50 outline-none transition-all text-white font-medium placeholder:text-slate-500/70 text-sm"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Password</label>
-              <div className="relative">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#fef3c7] text-amber-600 rounded-md p-1">
-                  <Lock size={12} strokeWidth={3} />
-                </div>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
-                  value={password}
-                  autoComplete="new-password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full h-12 pl-12 pr-12 bg-[#20202a] border border-white/5 rounded-xl focus:border-[#7c3aed]/50 outline-none transition-all text-white font-medium placeholder:text-slate-500/70 text-sm"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
-                >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
-              </div>
-            </div>
-
-            <AnimatePresence mode='popLayout'>
-              {!isLogin && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden"
-                >
-                  <div className="pt-1">
-                    <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Confirm Password</label>
-                    <div className="relative">
-                      <div className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#fef3c7] text-amber-600 rounded-md p-1">
-                        <Lock size={12} strokeWidth={3} />
-                      </div>
-                      <input
-                        type={showConfirmPassword ? "text" : "password"}
-                        placeholder="Confirm your password"
-                        value={confirmPassword}
-                        autoComplete="new-password"
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="w-full h-12 pl-12 pr-12 bg-[#20202a] border border-white/5 rounded-xl focus:border-[#7c3aed]/50 outline-none transition-all text-white font-medium placeholder:text-slate-500/70 text-sm"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
-                      >
-                        {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <button
-              type="submit"
-              disabled={!isFormValid}
-              className="w-full h-12 mt-4 bg-gradient-to-r from-[#7c3aed] to-[#3b82f6] text-white rounded-xl font-bold text-sm disabled:opacity-50 transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40"
-            >
-              {isLogin ? 'Sign In' : 'Create Account'}
-            </button>
-            
-            <div className="relative flex items-center justify-center w-full py-4">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-white/10"></div>
-              </div>
-              <div className="relative px-4 text-xs font-semibold text-slate-500 uppercase bg-[#181820]">
-                Or
-              </div>
-            </div>
-
+          {/* Social Buttons */}
+          <div className="mb-8">
             <button
               type="button"
               onClick={handleGoogleSignIn}
-              className="w-full h-12 bg-white text-slate-800 rounded-xl font-bold text-sm transition-all hover:bg-slate-100 flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
+              className="w-full h-12 bg-[#1a1b23] hover:bg-[#23242f] border border-white/5 rounded-xl flex items-center justify-center gap-3 transition-colors active:scale-[0.98]"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -249,12 +136,130 @@ export default function LoginScreen({ onLoginSuccess, onBack }) {
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
               </svg>
-              Sign in with Google
+              <span className="text-white text-sm font-semibold">Continue with Google</span>
             </button>
+          </div>
+
+          <div className="relative flex items-center justify-center w-full mb-8">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-white/5"></div>
+            </div>
+            <div className="relative px-4 text-xs font-semibold text-slate-500 bg-[#111216]">
+              OR
+            </div>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <AnimatePresence mode='popLayout'>
+              {!isLogin && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="overflow-hidden flex items-center"
+                >
+                  <div className="w-[100px] text-slate-400 text-sm font-medium">Username</div>
+                  <input
+                    type="text"
+                    placeholder="johndoe"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="flex-1 bg-transparent border-b border-white/10 focus:border-blue-500 py-3 outline-none text-white font-medium placeholder:text-slate-600 text-sm transition-colors"
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <div className="flex items-center">
+              <div className="w-[100px] text-slate-400 text-sm font-medium">Email</div>
+              <input
+                type="email"
+                placeholder="user@mail.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex-1 bg-transparent border-b border-white/10 focus:border-blue-500 py-3 outline-none text-white font-medium placeholder:text-slate-600 text-sm transition-colors"
+              />
+            </div>
+
+            <div className="flex items-center">
+              <div className="w-[100px] text-slate-400 text-sm font-medium">Password</div>
+              <input
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="flex-1 bg-transparent border-b border-white/10 focus:border-blue-500 py-3 outline-none text-white font-medium placeholder:text-slate-600 text-sm transition-colors"
+              />
+            </div>
+
+            <div className="pt-4">
+              <button
+                type="submit"
+                disabled={!isFormValid}
+                className="w-full h-14 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-lg disabled:opacity-50 transition-colors shadow-lg shadow-blue-600/20 active:scale-[0.98]"
+              >
+                {isLogin ? 'Log in' : 'Register'}
+              </button>
+            </div>
+
+            <div className="pt-4 text-center">
+              <button
+                type="button"
+                onClick={() => setIsLogin(!isLogin)}
+                className="text-slate-400 text-sm font-medium hover:text-white transition-colors"
+              >
+                {isLogin ? "Don't have an account? Sign up" : "Already have an account? Log in"}
+              </button>
+            </div>
           </form>
-          
+          </motion.div>
         </div>
-      </motion.div>
+
+        {/* DEVELOPED BY FOOTER */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          className="w-full max-w-[420px] mt-12 relative z-10"
+        >
+          <div className="relative flex items-center justify-center w-full mb-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-white/5"></div>
+            </div>
+            <div className="relative px-4 text-[10px] font-bold text-slate-500 bg-[#111216] tracking-widest uppercase">
+              Developed By
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <a 
+              href="https://www.linkedin.com/in/partha-balakrishna-582095363" 
+              target="_blank" 
+              rel="noreferrer"
+              className="group flex flex-col bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-blue-500/30 rounded-xl p-4 transition-all"
+            >
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Frontend</span>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-semibold text-white/90 group-hover:text-blue-400 transition-colors">Partha B.</span>
+                <ExternalLink size={14} className="text-slate-600 group-hover:text-blue-400 transition-colors" />
+              </div>
+            </a>
+            
+            <a 
+              href="https://www.linkedin.com/in/aditi-kamath-a-235032359" 
+              target="_blank" 
+              rel="noreferrer"
+              className="group flex flex-col bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-purple-500/30 rounded-xl p-4 transition-all"
+            >
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Backend</span>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-semibold text-white/90 group-hover:text-purple-400 transition-colors">Aditi K.</span>
+                <ExternalLink size={14} className="text-slate-600 group-hover:text-purple-400 transition-colors" />
+              </div>
+            </a>
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 }
