@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Settings as SettingsIcon, Camera, Mail, User, Eye, EyeOff, Save, Edit2, AlertCircle, Trash2, Lock } from 'lucide-react';
+import { auth, db } from '../firebase';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { updatePassword, updateEmail } from 'firebase/auth';
 
 export default function SettingsView({ isDarkMode, setIsDarkMode, onLogout, showToast, onUserUpdated, user: currentUserProp }) {
   const [user, setUser] = useState(() => {
@@ -8,7 +11,7 @@ export default function SettingsView({ isDarkMode, setIsDarkMode, onLogout, show
     return { 
       username: currentUserProp?.username || saved.username || '', 
       email: currentUserProp?.email || saved.email || '', 
-      profilePic: currentUserProp?.profilePic || saved.profilePic || '' 
+      profilePic: currentUserProp?.profilePic !== undefined ? currentUserProp.profilePic : (saved.profilePic || '')
     };
   });
   
@@ -22,22 +25,50 @@ export default function SettingsView({ isDarkMode, setIsDarkMode, onLogout, show
       }));
     }
   }, [currentUserProp]);
+
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+
+  const compressImage = (file, callback) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_SIZE = 256;
+        let width = img.width;
+        let height = img.height;
+        if (width > height) {
+          if (width > MAX_SIZE) {
+            height *= MAX_SIZE / width;
+            width = MAX_SIZE;
+          }
+        } else {
+          if (height > MAX_SIZE) {
+            width *= MAX_SIZE / height;
+            height = MAX_SIZE;
+          }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        callback(canvas.toDataURL('image/jpeg', 0.8));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleAvatarUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = async () => {
-        const base64Str = reader.result;
+      compressImage(file, async (base64Str) => {
         setUser(prev => ({ ...prev, profilePic: base64Str }));
-        
         try {
-          const { auth, db } = await import('../firebase');
-          const { doc, updateDoc } = await import('firebase/firestore');
           if (auth.currentUser) {
             await updateDoc(doc(db, 'users', auth.currentUser.uid), { profilePic: base64Str });
             showToast('Profile picture saved to cloud! ☁️');
@@ -46,16 +77,13 @@ export default function SettingsView({ isDarkMode, setIsDarkMode, onLogout, show
           console.error(err);
           showToast('Failed to sync picture to cloud ❌');
         }
-      };
-      reader.readAsDataURL(file);
+      });
     }
   };
 
   const handleRemoveAvatar = async () => {
     setUser(prev => ({ ...prev, profilePic: '' }));
     try {
-      const { auth, db } = await import('../firebase');
-      const { doc, updateDoc } = await import('firebase/firestore');
       if (auth.currentUser) {
         await updateDoc(doc(db, 'users', auth.currentUser.uid), { profilePic: '' });
         showToast('Profile picture removed! 🗑️');
@@ -66,37 +94,30 @@ export default function SettingsView({ isDarkMode, setIsDarkMode, onLogout, show
   };
 
   useEffect(() => {
-    fetchUserData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const fetchUserData = async () => {
-    try {
-      const { auth, db } = await import('../firebase');
-      const { doc, getDoc } = await import('firebase/firestore');
-      auth.onAuthStateChanged(async (user) => {
-        if (user) {
-          const userDoc = await getDoc(doc(db, 'users', user.uid));
+    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+      if (currentUser) {
+        try {
+          const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
           if (userDoc.exists()) {
             const data = userDoc.data();
             setUser({ username: data.username, email: data.email, profilePic: data.profilePic || '' });
-            if (onUserUpdated) onUserUpdated({ ...data, email: user.email });
+            if (onUserUpdated) onUserUpdated({ ...data, email: currentUser.email });
           }
+        } catch (e) {
+          console.error(e);
         }
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
+      }
+    });
+    return () => unsubscribe();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setUser({ ...user, profilePic: reader.result });
-      };
-      reader.readAsDataURL(file);
+      compressImage(file, (base64Str) => {
+        setUser({ ...user, profilePic: base64Str });
+      });
     }
   };
 
@@ -110,14 +131,16 @@ export default function SettingsView({ isDarkMode, setIsDarkMode, onLogout, show
     setIsSaving(true);
     
     try {
-      const { auth, db } = await import('../firebase');
-      const { updatePassword } = await import('firebase/auth');
-      const { doc, updateDoc } = await import('firebase/firestore');
-      
       if (auth.currentUser) {
         if (password) await updatePassword(auth.currentUser, password);
+        
+        if (user.email && user.email !== auth.currentUser.email) {
+          await updateEmail(auth.currentUser, user.email);
+        }
+
         await updateDoc(doc(db, 'users', auth.currentUser.uid), {
           username: user.username,
+          email: user.email,
           theme: isDarkMode ? 'dark' : 'light',
           profilePic: user.profilePic || ''
         });
@@ -132,20 +155,6 @@ export default function SettingsView({ isDarkMode, setIsDarkMode, onLogout, show
       showToast("Error updating account details ❌");
     }
     setIsSaving(false);
-  };
-
-  const handleThemeChange = async () => {
-    const newTheme = !isDarkMode;
-    setIsDarkMode(newTheme);
-    try {
-      const { auth, db } = await import('../firebase');
-      const { doc, updateDoc } = await import('firebase/firestore');
-      if (auth.currentUser) {
-        await updateDoc(doc(db, 'users', auth.currentUser.uid), { theme: newTheme ? 'dark' : 'light' });
-      }
-    } catch (e) {
-      console.error("Failed to sync theme", e);
-    }
   };
 
   return (
@@ -320,7 +329,13 @@ export default function SettingsView({ isDarkMode, setIsDarkMode, onLogout, show
                     onClick={() => {
                       setIsEditing(false);
                       setPassword('');
-                      fetchUserData(); // reset changes
+                      if (currentUserProp) {
+                        setUser({
+                          username: currentUserProp.username || '',
+                          email: currentUserProp.email || '',
+                          profilePic: currentUserProp.profilePic || ''
+                        });
+                      }
                     }}
                     className="flex-1 h-12 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-white rounded-xl font-bold text-sm transition-colors hover:bg-slate-200 dark:hover:bg-white/10"
                   >
