@@ -5,7 +5,7 @@ import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db, signInWithGoogle } from '../firebase';
 import { CheckCircle2, ExternalLink } from 'lucide-react';
 
-export default function LoginScreen({ onLoginSuccess }) {
+export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAditiPortfolio }) {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -235,31 +235,29 @@ export default function LoginScreen({ onLoginSuccess }) {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <a 
-              href="https://www.linkedin.com/in/partha-balakrishna-582095363" 
-              target="_blank" 
-              rel="noreferrer"
-              className="group flex flex-col bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-blue-500/30 rounded-xl p-4 transition-all"
+            <button 
+              type="button"
+              onClick={onShowPortfolio}
+              className="text-left group flex flex-col bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-blue-500/30 rounded-xl p-4 transition-all"
             >
               <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Frontend</span>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between w-full">
                 <span className="text-sm font-semibold text-white/90 group-hover:text-blue-400 transition-colors">Partha B.</span>
                 <ExternalLink size={14} className="text-slate-600 group-hover:text-blue-400 transition-colors" />
               </div>
-            </a>
+            </button>
             
-            <a 
-              href="https://www.linkedin.com/in/aditi-kamath-a-235032359" 
-              target="_blank" 
-              rel="noreferrer"
-              className="group flex flex-col bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-purple-500/30 rounded-xl p-4 transition-all"
+            <button 
+              type="button"
+              onClick={onShowAditiPortfolio}
+              className="text-left group flex flex-col bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-purple-500/30 rounded-xl p-4 transition-all"
             >
               <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Backend</span>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between w-full">
                 <span className="text-sm font-semibold text-white/90 group-hover:text-purple-400 transition-colors">Aditi K.</span>
                 <ExternalLink size={14} className="text-slate-600 group-hover:text-purple-400 transition-colors" />
               </div>
-            </a>
+            </button>
           </div>
         </motion.div>
       </div>

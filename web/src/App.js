@@ -10,6 +10,8 @@ import AddTaskModal from './components/AddTaskModal';
 import Sidebar from './components/Sidebar';
 import RequestsView from './components/RequestsView';
 import SettingsView from './components/SettingsView';
+import Portfolio from './components/Portfolio';
+import AditiPortfolio from './components/AditiPortfolio';
 import { auth, db, logout as firebaseLogout } from './firebase';
 import { collection, query, where, getDocs, doc, getDoc, updateDoc, deleteDoc, addDoc } from 'firebase/firestore';
 
@@ -124,7 +126,8 @@ export default function App() {
                const data = userDoc.data();
                if (data.theme) setIsDarkMode(data.theme === 'dark');
                setCurrentUser(prev => {
-                 const updatedUser = { ...data, profilePic: data.profilePic || prev?.profilePic, uid: user.uid };
+                 const newPic = data.profilePic !== undefined ? data.profilePic : prev?.profilePic;
+                 const updatedUser = { ...data, profilePic: newPic, uid: user.uid };
                  localStorage.setItem('user', JSON.stringify(updatedUser));
                  return updatedUser;
                });
@@ -197,8 +200,9 @@ export default function App() {
       delete payload.id;
       let invitees = [];
       
-      if (task.collaborators && task.collaborators.length > 0) {
-        const qUsers = query(collection(db, 'users'), where('email', 'in', task.collaborators));
+      if (task.collaboratorEmails && task.collaboratorEmails.length > 0) {
+        const searchEmails = task.collaboratorEmails.map(e => e.toLowerCase());
+        const qUsers = query(collection(db, 'users'), where('email', 'in', searchEmails));
         const userDocs = await getDocs(qUsers);
         userDocs.forEach(d => {
           payload.collaborators[d.id] = 'PENDING';
@@ -282,7 +286,8 @@ export default function App() {
       if (emailsChanged) {
         payload.collaborators = {};
         if (newEmails.length > 0) {
-          const qUsers = query(collection(db, 'users'), where('email', 'in', newEmails));
+          const searchEmails = newEmails.map(e => e.toLowerCase());
+          const qUsers = query(collection(db, 'users'), where('email', 'in', searchEmails));
           const userDocs = await getDocs(qUsers);
           userDocs.forEach(d => {
             payload.collaborators[d.id] = 'PENDING';
@@ -372,8 +377,18 @@ export default function App() {
 
 
 
+  const [showPortfolio, setShowPortfolio] = useState(false);
+  const [showAditiPortfolio, setShowAditiPortfolio] = useState(false);
+
+  if (showPortfolio) return <Portfolio onBack={() => setShowPortfolio(false)} />;
+  if (showAditiPortfolio) return <AditiPortfolio onBack={() => setShowAditiPortfolio(false)} />;
+
   if (!isLoggedIn) return (
-    <LoginScreen onLoginSuccess={() => setIsLoggedIn(true)} />
+    <LoginScreen 
+      onLoginSuccess={() => setIsLoggedIn(true)} 
+      onShowPortfolio={() => setShowPortfolio(true)} 
+      onShowAditiPortfolio={() => setShowAditiPortfolio(true)}
+    />
   );
 
   return (
@@ -403,7 +418,7 @@ export default function App() {
         />
 
         {/* Main Content Area */}
-        <main className="flex-1 min-h-[calc(100vh-2rem)] my-4 mr-4 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] lg:ml-[112px] peer-hover:lg:ml-[288px] bg-white dark:bg-[#13131a] rounded-3xl shadow-2xl border border-slate-100 dark:border-white/5 overflow-y-auto relative">
+        <main className="flex-1 h-screen lg:min-h-[calc(100vh-2rem)] lg:my-4 lg:mr-4 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] lg:ml-[112px] peer-hover:lg:ml-[288px] bg-white dark:bg-[#13131a] lg:rounded-3xl shadow-2xl border-0 lg:border border-slate-100 dark:border-white/5 overflow-y-auto relative">
           <div className="max-w-7xl w-full px-6 lg:px-8 py-8 pb-32 min-h-full">
 
             {/* Header (Mobile) */}
