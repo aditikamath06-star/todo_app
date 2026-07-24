@@ -142,8 +142,8 @@ export default function AditiPortfolio({ onBack }) {
             <div className="grid md:grid-cols-12 gap-12 items-center">
               <div className="md:col-span-7 flex flex-col items-start text-left order-2 md:order-1">
                 <h1 className="text-5xl md:text-7xl font-bold text-slate-900 leading-[1.1] tracking-tight mb-6">
-                  Hi, I'm <span className="text-[#a78bfa]">Aditi</span> <br className="hidden md:block"/>
-                  <span className="text-[#3b82f6]">Kamath.</span>
+                  Hi, I'm <span className="font-extrabold text-[#FF3B3B]">Aditi</span> <br className="hidden md:block"/>
+                  <span className="font-extrabold">Kamath.</span>
                 </h1>
                 <p className="text-lg md:text-xl text-slate-600 leading-relaxed mb-8 max-w-xl">
                   B.E. in Computer Science. Passionate about designing scalable systems, robust databases, and full-stack applications.
