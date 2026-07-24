@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Linkedin, Github, Download, Mail, ChevronRight, Menu, X, Code2, Layout, Database, Smartphone, ArrowUp } from 'lucide-react';
+import { ArrowLeft, Linkedin, Github, Download, Mail, ChevronRight, Menu, X, Code2, Layout, Database, Smartphone, ArrowUp, Phone, MessageCircle } from 'lucide-react';
 
 export default function Portfolio({ onBack }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -348,12 +348,33 @@ export default function Portfolio({ onBack }) {
             <p className="text-slate-400 mb-8 text-lg">
               Discuss a project or just want to say hi? My inbox is open for all.
             </p>
-            <a 
-              href="mailto:partha200629@gmail.com"
-              className="inline-flex items-center gap-2 bg-blue-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
-            >
-              Drop a message <Mail size={20} />
-            </a>
+            <div className="flex justify-center items-center gap-6 mt-8">
+              <a 
+                href="https://wa.me/919667338569?text=Hey%20there!%20I%20came%20across%20your%20portfolio%20and%20wanted%20to%20reach%20out%20about%20a%20collaboration.%20Let%20me%20know%20when%20you're%20free%20to%20chat!"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-center w-16 h-16 bg-[#25D366] text-white rounded-full hover:-translate-y-2 hover:shadow-xl hover:shadow-[#25D366]/30 transition-all duration-300 shadow-lg shadow-[#25D366]/20"
+                title="WhatsApp"
+              >
+                <MessageCircle size={28} />
+              </a>
+              
+              <a 
+                href="mailto:partha200629@gmail.com?subject=Reaching%20out%20about%20a%20collaboration&body=Hey%20there!%20I%20came%20across%20your%20portfolio%20and%20wanted%20to%20reach%20out%20about%20a%20collaboration.%20Let%20me%20know%20when%20you're%20free%20to%20chat!"
+                className="flex items-center justify-center w-16 h-16 bg-[#EA4335] text-white rounded-full hover:-translate-y-2 hover:shadow-xl hover:shadow-[#EA4335]/30 transition-all duration-300 shadow-lg shadow-[#EA4335]/20"
+                title="Email"
+              >
+                <Mail size={28} />
+              </a>
+
+              <a 
+                href="tel:+919667338569"
+                className="flex items-center justify-center w-16 h-16 bg-[#4285F4] text-white rounded-full hover:-translate-y-2 hover:shadow-xl hover:shadow-[#4285F4]/30 transition-all duration-300 shadow-lg shadow-[#4285F4]/20"
+                title="Phone"
+              >
+                <Phone size={28} />
+              </a>
+            </div>
           </motion.div>
         </section>
 
