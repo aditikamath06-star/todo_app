@@ -377,7 +377,12 @@ export default function App() {
 
 
 
-  const [currentView, setCurrentView] = useState(() => sessionStorage.getItem('currentView') || 'app');
+  const [currentView, setCurrentView] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('view') === 'portfolio') return 'portfolio';
+    if (params.get('view') === 'aditi_portfolio') return 'aditi_portfolio';
+    return sessionStorage.getItem('currentView') || 'app';
+  });
 
   const setView = (view) => {
     setCurrentView(view);
