@@ -297,42 +297,46 @@ export default function AditiPortfolio({ onBack }) {
              <div className="grid md:grid-cols-2 gap-12">
                <div>
                  <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-8">Education</h2>
-                 <div className="pl-6 border-l-2 border-[#FF3B3B]/30 relative">
-                    <motion.div 
-                       initial={{ y: 120, opacity: 0 }}
-                       whileInView={{ y: 0, opacity: 1 }}
-                       viewport={{ once: false, margin: "-20px" }}
-                       transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
-                       className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
-                    ></motion.div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-1">B.E. Computer Science</h3>
-                    <p className="text-[#FF3B3B] font-bold mb-3">BMS College of Engineering</p>
-                    <p className="text-slate-600 leading-relaxed">
-                      Coursework across Data Structures, DBMS, Operating Systems, and Software Engineering. Organized a college-wide Blood Donation Camp.
-                    </p>
-                 </div>
+                 <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: false, margin: "-20px" }}
+                  variants={{
+                    visible: { transition: { staggerChildren: 0.2 } },
+                    hidden: { transition: { staggerChildren: 0.1, staggerDirection: -1 } }
+                  }}
+                >
+                  <div className="pl-6 border-l-2 border-[#FF3B3B]/30 relative">
+                     <motion.div 
+                        variants={{ hidden: { y: 120, opacity: 0 }, visible: { y: 0, opacity: 1 } }}
+                        transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
+                        className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
+                     ></motion.div>
+                     <h3 className="text-xl font-bold text-slate-900 mb-1">B.E. Computer Science</h3>
+                     <p className="text-[#FF3B3B] font-bold mb-3">BMS College of Engineering</p>
+                     <p className="text-slate-600 leading-relaxed">
+                       Coursework across Data Structures, DBMS, Operating Systems, and Software Engineering. Organized a college-wide Blood Donation Camp.
+                     </p>
+                  </div>
                   <div className="pl-6 border-l-2 border-[#FF3B3B]/30 relative mt-8">
                      <motion.div 
-                       initial={{ y: 120, opacity: 0 }}
-                       whileInView={{ y: 0, opacity: 1 }}
-                       viewport={{ once: false, margin: "-20px" }}
-                       transition={{ duration: 0.8, delay: 0.2, type: "spring", bounce: 0.3 }}
-                       className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
+                        variants={{ hidden: { y: 120, opacity: 0 }, visible: { y: 0, opacity: 1 } }}
+                        transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
+                        className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
                      ></motion.div>
                      <h3 className="text-xl font-bold text-slate-900 mb-1">Pre-University Education</h3>
                      <p className="text-[#FF3B3B] font-bold mb-3">RV PU College</p>
                   </div>
                   <div className="pl-6 border-l-2 border-[#FF3B3B]/30 relative mt-8">
                      <motion.div 
-                       initial={{ y: 120, opacity: 0 }}
-                       whileInView={{ y: 0, opacity: 1 }}
-                       viewport={{ once: false, margin: "-20px" }}
-                       transition={{ duration: 0.8, delay: 0.4, type: "spring", bounce: 0.3 }}
-                       className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
+                        variants={{ hidden: { y: 120, opacity: 0 }, visible: { y: 0, opacity: 1 } }}
+                        transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
+                        className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
                      ></motion.div>
                      <h3 className="text-xl font-bold text-slate-900 mb-1">High School</h3>
                      <p className="text-[#FF3B3B] font-bold mb-3">N.E.T Public School (ICSE Board)</p>
                   </div>
+                </motion.div>
                </div>
                
                <div>
