@@ -192,9 +192,18 @@ export default function AditiPortfolio({ onBack }) {
                   animate={{ opacity: 1, scale: 1, rotate: 3 }}
                   whileHover={{ scale: 1.05, rotate: 0 }}
                   transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
-                  className="w-[280px] h-[280px] md:w-[360px] md:h-[360px] rounded-3xl overflow-hidden shadow-2xl bg-white hover:bg-[#FF3B3B] transition-colors duration-300 p-2 cursor-pointer"
+                  className="w-[280px] h-[280px] md:w-[360px] md:h-[360px] relative group cursor-pointer"
                 >
-                  <img src="/aditi.jpeg" alt="Aditi Kamath" className="w-full h-full object-cover rounded-[1.25rem] bg-slate-100" />
+                  {/* Photo with white frame */}
+                  <div className="w-full h-full rounded-3xl shadow-2xl bg-white p-2 absolute inset-0 z-10">
+                    <img src="/aditi.jpeg" alt="Aditi Kamath" className="w-full h-full object-cover rounded-[1.25rem] bg-slate-100" />
+                  </div>
+                  
+                  {/* Hover Corners */}
+                  <div className="absolute -top-2 -left-2 w-12 h-12 border-t-8 border-l-8 border-transparent group-hover:border-[#FF3B3B] rounded-tl-[2rem] transition-colors duration-300 z-20 pointer-events-none"></div>
+                  <div className="absolute -top-2 -right-2 w-12 h-12 border-t-8 border-r-8 border-transparent group-hover:border-[#FF3B3B] rounded-tr-[2rem] transition-colors duration-300 z-20 pointer-events-none"></div>
+                  <div className="absolute -bottom-2 -left-2 w-12 h-12 border-b-8 border-l-8 border-transparent group-hover:border-[#FF3B3B] rounded-bl-[2rem] transition-colors duration-300 z-20 pointer-events-none"></div>
+                  <div className="absolute -bottom-2 -right-2 w-12 h-12 border-b-8 border-r-8 border-transparent group-hover:border-[#FF3B3B] rounded-br-[2rem] transition-colors duration-300 z-20 pointer-events-none"></div>
                 </motion.div>
               </div>
             </div>
