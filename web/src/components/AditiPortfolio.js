@@ -144,7 +144,7 @@ export default function AditiPortfolio({ onBack }) {
                   Backend <span className="font-extrabold text-[#FF3B3B]">Developer</span> & <br className="hidden md:block"/> Software <span className="font-extrabold">Engineer.</span>
                 </h1>
                 <p className="text-lg md:text-xl text-slate-600 leading-relaxed mb-8 max-w-xl">
-                  B.E. in Computer Science. Passionate about designing scalable systems, robust databases, and full-stack applications.
+                  Backend Developer at <strong>CUBERA ADTECH AND BIG DATA COMPANY</strong>. B.E. in Computer Science. Passionate about designing scalable systems, robust databases, and full-stack applications.
                 </p>
                 <div className="flex gap-4">
                   <a href="/AditiKamathResume_pdf.pdf" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#FF3B3B] text-white font-bold hover:bg-[#E02929] transition-all shadow-[0_4px_14px_0_rgba(255,59,59,0.39)]">
