@@ -5,6 +5,7 @@ import { ArrowLeft, Linkedin, Github, Download, Mail, ChevronRight, Menu, X, Cod
 export default function Portfolio({ onBack }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('about');
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   const navLinks = [
     { name: "About", href: "#about" },
@@ -29,6 +30,12 @@ export default function Portfolio({ onBack }) {
       }
       if (current && current !== activeSection) {
         setActiveSection(current);
+      }
+
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
       }
     };
     window.addEventListener('scroll', handleScroll);
@@ -361,7 +368,7 @@ export default function Portfolio({ onBack }) {
       {/* Scroll to top */}
       <a 
         href="#" 
-        className="fixed bottom-8 right-8 w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-blue-500/25 hover:bg-blue-600 hover:-translate-y-1 transition-all z-50"
+        className={`fixed bottom-8 right-8 w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-blue-500/25 transition-all duration-300 z-50 ${showScrollTop ? 'opacity-100 translate-y-0 hover:bg-blue-600 hover:-translate-y-1' : 'opacity-0 translate-y-10 pointer-events-none'}`}
         title="Go to top"
       >
         <ArrowUp size={24} />
