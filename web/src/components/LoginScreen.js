@@ -139,19 +139,16 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
         
         <div className="flex-1 flex flex-col w-full items-center justify-center mt-6 lg:mt-0">
           {/* Mobile branding */}
-          <div className="lg:hidden flex flex-col items-center justify-center mb-8">
-            <div className="flex items-center gap-3 mb-2">
-              <img 
-                src="/premium-todo.png" 
-                alt="3D Illustration" 
-                className="w-12 h-12 object-contain drop-shadow-lg"
-              />
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-600/30">
-                <CheckCircle2 size={18} className="text-white" strokeWidth={2.5} />
-              </div>
-              <h1 className="text-2xl font-bold text-white tracking-tight">TodoList</h1>
+          <div className="lg:hidden flex items-center justify-center gap-4 mb-10">
+            <img 
+              src="/premium-todo.png" 
+              alt="3D Illustration" 
+              className="w-20 h-20 object-contain drop-shadow-xl"
+            />
+            <div className="flex flex-col items-start justify-center">
+              <h1 className="text-3xl font-bold text-white tracking-tight mb-1">TodoList</h1>
+              <p className="text-slate-400 text-sm">Manage all your daily tasks.</p>
             </div>
-            <p className="text-slate-400 text-sm text-center">Manage all your daily tasks.</p>
           </div>
 
           <motion.div 
