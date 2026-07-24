@@ -8,6 +8,7 @@ export default function AditiPortfolio({ onBack }) {
 
   const navLinks = [
     { name: "About", href: "#about" },
+    { name: "Experience", href: "#experience" },
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
     { name: "Education", href: "#education" },
@@ -144,7 +145,7 @@ export default function AditiPortfolio({ onBack }) {
                   Backend <span className="font-extrabold text-[#FF3B3B]">Developer</span> & <br className="hidden md:block"/> Software <span className="font-extrabold">Engineer.</span>
                 </h1>
                 <p className="text-lg md:text-xl text-slate-600 leading-relaxed mb-8 max-w-xl">
-                  Backend Developer at <strong>CUBERA ADTECH AND BIG DATA COMPANY</strong>. B.E. in Computer Science. Passionate about designing scalable systems, robust databases, and full-stack applications.
+                  B.E. in Computer Science. Passionate about designing scalable systems, robust databases, and full-stack applications.
                 </p>
                 <div className="flex gap-4">
                   <a href="/AditiKamathResume_pdf.pdf" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#FF3B3B] text-white font-bold hover:bg-[#E02929] transition-all shadow-[0_4px_14px_0_rgba(255,59,59,0.39)]">
@@ -161,6 +162,22 @@ export default function AditiPortfolio({ onBack }) {
                 </div>
               </div>
             </div>
+          </section>
+
+          {/* Experience Section */}
+          <section id="experience" className="scroll-mt-32">
+             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-16 text-center md:text-left">Experience</h2>
+             
+             <div className="bg-white rounded-[2rem] p-8 md:p-12 shadow-sm border border-slate-100 mb-16">
+               <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                 <h3 className="text-2xl font-bold text-slate-900">Backend Developer Intern</h3>
+                 <span className="inline-block px-4 py-2 mt-4 md:mt-0 bg-[#FFF8F3] text-[#FF3B3B] font-bold rounded-full text-sm">Present</span>
+               </div>
+               <h4 className="text-xl font-bold text-slate-700 mb-6">CUBERA ADTECH AND BIG DATA COMPANY</h4>
+               <p className="text-slate-600 leading-relaxed text-lg">
+                 Working as a backend developer intern, contributing to the development of scalable data processing pipelines and adtech solutions.
+               </p>
+             </div>
           </section>
 
           {/* Projects Section */}
