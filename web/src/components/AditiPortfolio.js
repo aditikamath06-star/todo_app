@@ -163,9 +163,15 @@ export default function AditiPortfolio({ onBack }) {
                 </div>
               </div>
               <div className="md:col-span-5 flex justify-center order-1 md:order-2">
-                <div className="w-[280px] h-[280px] md:w-[360px] md:h-[360px] rounded-3xl overflow-hidden shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500 bg-white p-2">
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 3 }}
+                  whileHover={{ scale: 1.05, rotate: 0 }}
+                  transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+                  className="w-[280px] h-[280px] md:w-[360px] md:h-[360px] rounded-3xl overflow-hidden shadow-2xl bg-white p-2 cursor-pointer"
+                >
                   <img src="/aditi.jpeg" alt="Aditi Kamath" className="w-full h-full object-cover rounded-[1.25rem] bg-slate-100" />
-                </div>
+                </motion.div>
               </div>
             </div>
           </section>
