@@ -73,15 +73,7 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
         
         {/* Content */}
         <div className="relative z-10 w-full max-w-[500px] flex flex-col items-center">
-          <div className="w-[180px] sm:w-[240px] lg:w-full aspect-square relative lg:mb-12">
-            <img 
-              src="/premium-todo.png" 
-              alt="3D Illustration" 
-              className="w-full h-full object-contain drop-shadow-2xl"
-            />
-          </div>
-          
-          <div className="text-center hidden lg:block">
+          <div className="text-center hidden lg:block mb-8">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/30">
                 <CheckCircle2 size={24} className="text-white" strokeWidth={2.5} />
@@ -91,6 +83,51 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
             <p className="text-slate-400 text-base font-medium max-w-sm mx-auto">
               The easiest way to manage all your daily tasks, boost productivity, and get things done.
             </p>
+          </div>
+
+          <div className="w-[180px] sm:w-[240px] lg:w-full aspect-square relative lg:mb-12">
+            <img 
+              src="/premium-todo.png" 
+              alt="3D Illustration" 
+              className="w-full h-full object-contain drop-shadow-2xl"
+            />
+          </div>
+          
+          <div className="w-full hidden lg:block mt-auto pb-4">
+            <div className="relative flex items-center justify-center w-full mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-white/5"></div>
+              </div>
+              <div className="relative px-4 text-[10px] font-bold text-slate-500 bg-[#0c0d10] tracking-widest uppercase">
+                Developed By
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 w-full">
+              <button 
+                type="button"
+                onClick={onShowPortfolio}
+                className="text-left group flex flex-col bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-blue-500/30 rounded-xl p-4 transition-all"
+              >
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Frontend</span>
+                <div className="flex items-center justify-between w-full">
+                  <span className="text-sm font-semibold text-white/90 group-hover:text-blue-400 transition-colors">Partha B.</span>
+                  <ExternalLink size={14} className="text-slate-600 group-hover:text-blue-400 transition-colors" />
+                </div>
+              </button>
+              
+              <button 
+                type="button"
+                onClick={onShowAditiPortfolio}
+                className="text-left group flex flex-col bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-purple-500/30 rounded-xl p-4 transition-all"
+              >
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Backend</span>
+                <div className="flex items-center justify-between w-full">
+                  <span className="text-sm font-semibold text-white/90 group-hover:text-purple-400 transition-colors">Aditi K.</span>
+                  <ExternalLink size={14} className="text-slate-600 group-hover:text-purple-400 transition-colors" />
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -218,12 +255,12 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
           </motion.div>
         </div>
 
-        {/* DEVELOPED BY FOOTER */}
+        {/* DEVELOPED BY FOOTER (Mobile Only) */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
-          className="w-full max-w-[420px] mt-16 lg:mt-12 relative z-10"
+          className="w-full max-w-[420px] mt-16 lg:mt-12 relative z-10 lg:hidden"
         >
           <div className="relative flex items-center justify-center w-full mb-6">
             <div className="absolute inset-0 flex items-center">
