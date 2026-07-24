@@ -190,19 +190,19 @@ export default function Portfolio({ onBack }) {
 
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex flex-col w-24 h-screen fixed left-0 top-0 py-20 px-0 border-r border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-[#0a0a0a]/90 backdrop-blur-xl z-40 items-center">
-          <nav className="flex flex-col gap-6 flex-grow items-center w-full mt-10">
+          <nav className="flex flex-col gap-3 flex-grow items-center w-full mt-4">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.substring(1);
               return (
                 <a 
                   key={link.name} 
                   href={link.href} 
-                  className={`flex flex-col items-center justify-center p-4 rounded-2xl font-bold tracking-widest transition-all duration-500 mx-auto w-14 overflow-hidden border border-transparent ${isActive ? 'bg-blue-500/10 text-blue-400 max-h-64 border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.15)]' : 'text-slate-500 hover:bg-slate-100 dark:bg-white/5 dark:hover:bg-white/10 hover:text-slate-700 dark:text-slate-300 max-h-14 hover:shadow-lg'}`}
+                  className={`flex flex-col items-center justify-center py-3 rounded-2xl font-bold tracking-widest transition-all duration-500 mx-auto w-12 overflow-hidden border border-transparent ${isActive ? 'bg-blue-500/10 text-blue-400 max-h-64 border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.15)]' : 'text-slate-500 hover:bg-slate-100 dark:bg-white/5 dark:hover:bg-white/10 hover:text-slate-700 dark:text-slate-300 max-h-12 hover:shadow-lg'}`}
                 >
-                  <span className="text-xl uppercase">{link.name.charAt(0)}</span>
-                  <div className={`flex flex-col items-center overflow-hidden transition-all duration-500 ${isActive ? 'opacity-100 mt-3 max-h-48' : 'opacity-0 mt-0 max-h-0'}`}>
+                  <span className="text-lg uppercase leading-none">{link.name.charAt(0)}</span>
+                  <div className={`flex flex-col items-center overflow-hidden transition-all duration-500 ${isActive ? 'opacity-100 mt-2 max-h-48' : 'opacity-0 mt-0 max-h-0'}`}>
                     {link.name.substring(1).split('').map((char, i) => (
-                      <span key={i} className="text-[10px] uppercase leading-[1.2] my-[2px] opacity-70 font-black">{char}</span>
+                      <span key={i} className="text-[10px] uppercase leading-none my-[1px] opacity-70 font-black">{char}</span>
                     ))}
                   </div>
                 </a>
