@@ -85,13 +85,18 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
             </p>
           </div>
 
-          <div className="w-[180px] sm:w-[240px] lg:w-full aspect-square relative lg:mb-12">
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative z-10 w-full max-w-lg aspect-square"
+          >
             <img 
               src="/premium-todo.png" 
-              alt="3D Illustration" 
-              className="w-full h-full object-contain drop-shadow-2xl"
+              alt="Task Management 3D Illustration" 
+              className="w-full h-full object-contain drop-shadow-2xl relative z-10 scale-110"
             />
-          </div>
+          </motion.div>
           
           <div className="w-full hidden lg:block mt-auto pb-4">
             <div className="relative flex items-center justify-center w-full mb-6">
