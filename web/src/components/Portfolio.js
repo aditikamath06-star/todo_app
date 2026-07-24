@@ -460,15 +460,12 @@ export default function Portfolio({ onBack }) {
 
       </main>
       
-      {/* Footer */}
-      <footer className="border-t border-slate-200 dark:border-white/5 py-8 pb-24 md:pb-12 ml-0 md:ml-56 flex flex-col items-center justify-center">
-        <button 
-          onClick={onBack} 
-          className="px-5 py-2.5 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 rounded-full text-xs font-bold transition-colors inline-flex items-center gap-2 border border-slate-200 dark:border-white/10 hover:-translate-y-0.5"
-        >
-          <ArrowLeft size={14} /> Get back to the app
-        </button>
-      </footer>
+      <button 
+        onClick={onBack} 
+        className="fixed bottom-8 left-1/2 -translate-x-1/2 px-6 py-3 bg-white/80 dark:bg-[#13131a]/80 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:bg-slate-50 dark:hover:bg-[#1a1b23] text-slate-800 dark:text-slate-200 rounded-full text-sm font-bold transition-all inline-flex items-center gap-3 border border-slate-200/50 dark:border-white/10 z-[100] hover:-translate-y-1"
+      >
+        <ArrowLeft size={16} className="text-[#7c3aed]" /> Get back to the app
+      </button>
 
       {/* Scroll to top */}
       <a 
