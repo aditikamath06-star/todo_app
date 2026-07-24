@@ -301,7 +301,7 @@ export default function AditiPortfolio({ onBack }) {
                     <motion.div 
                        initial={{ y: 120, opacity: 0 }}
                        whileInView={{ y: 0, opacity: 1 }}
-                       viewport={{ once: true, margin: "-200px" }}
+                       viewport={{ once: true, margin: "-20px" }}
                        transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
                        className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
                     ></motion.div>
@@ -315,7 +315,7 @@ export default function AditiPortfolio({ onBack }) {
                      <motion.div 
                        initial={{ y: 120, opacity: 0 }}
                        whileInView={{ y: 0, opacity: 1 }}
-                       viewport={{ once: true, margin: "-200px" }}
+                       viewport={{ once: true, margin: "-20px" }}
                        transition={{ duration: 0.8, delay: 0.2, type: "spring", bounce: 0.3 }}
                        className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
                      ></motion.div>
@@ -326,7 +326,7 @@ export default function AditiPortfolio({ onBack }) {
                      <motion.div 
                        initial={{ y: 120, opacity: 0 }}
                        whileInView={{ y: 0, opacity: 1 }}
-                       viewport={{ once: true, margin: "-200px" }}
+                       viewport={{ once: true, margin: "-20px" }}
                        transition={{ duration: 0.8, delay: 0.4, type: "spring", bounce: 0.3 }}
                        className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
                      ></motion.div>
