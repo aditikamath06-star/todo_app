@@ -312,7 +312,7 @@ export default function AditiPortfolio({ onBack }) {
            <div className="w-[200%] md:w-[150%] flex animate-[marquee_20s_linear_infinite] whitespace-nowrap mb-6 hover:[animation-play-state:paused]">
              {[...Array(8)].map((_, i) => (
                <div key={i} className="flex items-center gap-8 mx-4">
-                 <a href="mailto:aditikamath06@gmail.com" className="text-xl md:text-2xl font-bold uppercase tracking-[0.15em] text-white/90 hover:text-white transition-colors cursor-pointer">aditikamath06@gmail.com</a>
+                 <a href="mailto:aditikamath06@gmail.com?subject=Connecting%20from%20Portfolio&body=Hi%20Aditi%2C%20I%20would%20like%20to%20connect%20with%20you%21" className="text-xl md:text-2xl font-bold uppercase tracking-[0.15em] text-white/90 hover:text-white transition-colors cursor-pointer">aditikamath06@gmail.com</a>
                  <span className="text-2xl text-white/50">✦</span>
                </div>
              ))}
