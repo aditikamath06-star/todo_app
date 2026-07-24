@@ -67,21 +67,13 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
     <div className="flex flex-col lg:flex-row min-h-screen bg-[#111216] text-white">
       
       {/* LEFT SIDE - Illustration */}
-      <div className="flex w-full lg:w-1/2 relative items-center justify-center bg-[#0c0d10] lg:border-r border-white/5 p-6 lg:p-12 lg:sticky lg:top-0 lg:h-screen min-h-[30vh] overflow-hidden">
+      <div className="hidden lg:flex w-full lg:w-1/2 relative items-center justify-center bg-[#0c0d10] lg:border-r border-white/5 p-6 lg:p-12 lg:sticky lg:top-0 lg:h-screen min-h-[30vh] overflow-hidden">
         {/* Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] lg:w-[600px] h-[300px] lg:h-[600px] bg-blue-600/10 rounded-full blur-[80px] lg:blur-[120px] pointer-events-none" />
         
         {/* Content */}
         <div className="relative z-10 w-full max-w-[500px] flex flex-col items-center">
-          <div className="w-[180px] sm:w-[240px] lg:w-full aspect-square relative lg:mb-12">
-            <img 
-              src="/premium-todo.png" 
-              alt="3D Illustration" 
-              className="w-full h-full object-contain drop-shadow-2xl"
-            />
-          </div>
-          
-          <div className="text-center hidden lg:block">
+          <div className="text-center hidden lg:block mb-8">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/30">
                 <CheckCircle2 size={24} className="text-white" strokeWidth={2.5} />
@@ -92,6 +84,60 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
               The easiest way to manage all your daily tasks, boost productivity, and get things done.
             </p>
           </div>
+
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative z-10 w-full max-w-lg aspect-square"
+          >
+            <img 
+              src="/premium-todo.png" 
+              alt="Task Management 3D Illustration" 
+              className="w-full h-full object-contain drop-shadow-2xl relative z-10 scale-110"
+              style={{ 
+                WebkitMaskImage: 'radial-gradient(circle at center, black 55%, transparent 72%)', 
+                maskImage: 'radial-gradient(circle at center, black 55%, transparent 72%)' 
+              }}
+            />
+          </motion.div>
+          
+          <div className="w-full hidden lg:block mt-auto pb-4">
+            <div className="relative flex items-center justify-center w-full mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-white/5"></div>
+              </div>
+              <div className="relative px-4 text-[10px] font-bold text-slate-500 bg-[#0c0d10] tracking-widest uppercase">
+                Developed By
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 w-full">
+              <button 
+                type="button"
+                onClick={onShowPortfolio}
+                className="text-left group flex flex-col bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-blue-500/30 rounded-xl p-4 transition-all"
+              >
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Frontend</span>
+                <div className="flex items-center justify-between w-full">
+                  <span className="text-sm font-semibold text-white/90 group-hover:text-blue-400 transition-colors">Partha B.</span>
+                  <ExternalLink size={14} className="text-slate-600 group-hover:text-blue-400 transition-colors" />
+                </div>
+              </button>
+              
+              <button 
+                type="button"
+                onClick={onShowAditiPortfolio}
+                className="text-left group flex flex-col bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-purple-500/30 rounded-xl p-4 transition-all"
+              >
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Backend</span>
+                <div className="flex items-center justify-between w-full">
+                  <span className="text-sm font-semibold text-white/90 group-hover:text-purple-400 transition-colors">Aditi K.</span>
+                  <ExternalLink size={14} className="text-slate-600 group-hover:text-purple-400 transition-colors" />
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -101,22 +147,29 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[100px] pointer-events-none lg:hidden" />
         
         <div className="flex-1 flex flex-col w-full items-center justify-center mt-6 lg:mt-0">
+          {/* Mobile branding */}
+          <div className="lg:hidden flex items-center justify-center gap-4 mb-10">
+            <img 
+              src="/premium-todo.png" 
+              alt="3D Illustration" 
+              className="w-20 h-20 object-contain drop-shadow-xl"
+              style={{ 
+                WebkitMaskImage: 'radial-gradient(circle at center, black 55%, transparent 75%)', 
+                maskImage: 'radial-gradient(circle at center, black 55%, transparent 75%)' 
+              }}
+            />
+            <div className="flex flex-col items-start justify-center">
+              <h1 className="text-3xl font-bold text-white tracking-tight mb-1">TodoList</h1>
+              <p className="text-slate-400 text-sm">Manage all your daily tasks.</p>
+            </div>
+          </div>
+
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full max-w-[420px] relative z-10"
+            className="w-full max-w-[480px] relative z-10 bg-[#1a1b23] border border-white/5 p-6 sm:p-10 rounded-[2rem] shadow-2xl"
           >
-            {/* Mobile branding */}
-            <div className="lg:hidden flex flex-col items-center justify-center mb-8">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-600/30">
-                  <CheckCircle2 size={18} className="text-white" strokeWidth={2.5} />
-                </div>
-                <h1 className="text-2xl font-bold text-white tracking-tight">TodoList</h1>
-              </div>
-              <p className="text-slate-400 text-sm text-center">Manage all your daily tasks.</p>
-            </div>
 
             <h2 className="text-[28px] lg:text-[32px] font-bold text-white mb-2 text-center lg:text-left">
               {isLogin ? 'Login' : 'Create an account'}
@@ -131,7 +184,7 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
               <button
                 type="button"
                 onClick={handleGoogleSignIn}
-                className="w-full h-12 bg-[#1a1b23] hover:bg-[#23242f] border border-white/5 rounded-xl flex items-center justify-center gap-3 transition-colors active:scale-[0.98]"
+                className="w-full h-12 bg-white/5 hover:bg-white/10 border border-white/5 rounded-xl flex items-center justify-center gap-3 transition-colors active:scale-[0.98]"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -147,7 +200,7 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-white/5"></div>
               </div>
-              <div className="relative px-4 text-xs font-semibold text-slate-500 bg-[#111216]">
+              <div className="relative px-4 text-xs font-semibold text-slate-500 bg-[#1a1b23]">
                 OR
               </div>
             </div>
@@ -218,12 +271,12 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
           </motion.div>
         </div>
 
-        {/* DEVELOPED BY FOOTER */}
+        {/* DEVELOPED BY FOOTER (Mobile Only) */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
-          className="w-full max-w-[420px] mt-16 lg:mt-12 relative z-10"
+          className="w-full max-w-[420px] mt-16 lg:mt-12 relative z-10 lg:hidden"
         >
           <div className="relative flex items-center justify-center w-full mb-6">
             <div className="absolute inset-0 flex items-center">
