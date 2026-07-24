@@ -67,7 +67,7 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
     <div className="flex flex-col lg:flex-row min-h-screen bg-[#111216] text-white">
       
       {/* LEFT SIDE - Illustration */}
-      <div className="flex w-full lg:w-1/2 relative items-center justify-center bg-[#0c0d10] lg:border-r border-white/5 p-6 lg:p-12 lg:sticky lg:top-0 lg:h-screen min-h-[30vh] overflow-hidden">
+      <div className="hidden lg:flex w-full lg:w-1/2 relative items-center justify-center bg-[#0c0d10] lg:border-r border-white/5 p-6 lg:p-12 lg:sticky lg:top-0 lg:h-screen min-h-[30vh] overflow-hidden">
         {/* Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] lg:w-[600px] h-[300px] lg:h-[600px] bg-blue-600/10 rounded-full blur-[80px] lg:blur-[120px] pointer-events-none" />
         
@@ -142,7 +142,7 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full max-w-[480px] relative z-10 bg-[#1a1b23] border border-white/5 p-8 sm:p-10 rounded-[2rem] shadow-2xl"
+            className="w-full max-w-[480px] relative z-10 bg-[#1a1b23] border border-white/5 p-6 sm:p-10 rounded-[2rem] shadow-2xl"
           >
             {/* Mobile branding */}
             <div className="lg:hidden flex flex-col items-center justify-center mb-8">

@@ -102,7 +102,7 @@ export default function Portfolio({ onBack }) {
           <motion.div 
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="absolute top-20 left-0 w-full bg-[#111] border-b border-white/5 py-4 px-6 flex flex-col gap-4 shadow-2xl"
+            className="absolute top-20 left-0 w-full bg-[#0a0a0a]/95 backdrop-blur-2xl border-b border-white/5 py-6 px-6 flex flex-col gap-5 shadow-2xl z-50"
           >
             {navLinks.map((link) => (
               <a 
@@ -168,7 +168,7 @@ export default function Portfolio({ onBack }) {
         </aside>
 
       {/* Main Content */}
-      <main className="flex-1 px-6 py-12 md:py-24 md:ml-56 max-w-5xl mx-auto flex flex-col gap-32">
+      <main className="flex-1 px-5 md:px-16 py-12 md:py-24 md:ml-56 max-w-5xl mx-auto flex flex-col gap-32">
         
         {/* Hero Section */}
         <section id="about" className="flex flex-col-reverse md:flex-row items-center gap-16 md:gap-8 min-h-[60vh] pt-8">
@@ -178,7 +178,7 @@ export default function Portfolio({ onBack }) {
             transition={{ duration: 0.8 }}
             className="flex-1 flex flex-col items-center md:items-start text-center md:text-left"
           >
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-tight">
+            <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-tight">
               Hi all, I'm <span className="whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Partha B.</span>
             </h1>
             <p className="text-lg md:text-xl text-slate-400 leading-relaxed mb-10 max-w-xl">
@@ -214,7 +214,7 @@ export default function Portfolio({ onBack }) {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex-1 flex justify-center md:justify-end"
           >
-            <div className="relative w-[280px] h-[360px] md:w-[360px] md:h-[480px] group">
+            <div className="relative w-[240px] h-[300px] md:w-[360px] md:h-[480px] group">
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-emerald-500/20 rounded-[2rem] blur-3xl animate-pulse" />
               <div className="relative w-full h-full rounded-[2rem] border border-white/10 p-3 bg-[#111]/80 backdrop-blur-sm shadow-2xl overflow-hidden">
                 <img 
