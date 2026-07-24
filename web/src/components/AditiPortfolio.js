@@ -309,10 +309,10 @@ export default function AditiPortfolio({ onBack }) {
       <footer id="contact" className="mt-20">
         <div className="bg-[#FF3B3B] text-white py-8 overflow-hidden flex flex-col items-center justify-center border-y-4 border-[#E02929]">
            
-           <div className="w-[200%] md:w-[150%] flex animate-[marquee_20s_linear_infinite] whitespace-nowrap mb-6 pointer-events-none">
+           <div className="w-[200%] md:w-[150%] flex animate-[marquee_20s_linear_infinite] whitespace-nowrap mb-6 hover:[animation-play-state:paused]">
              {[...Array(8)].map((_, i) => (
                <div key={i} className="flex items-center gap-8 mx-4">
-                 <span className="text-xl md:text-2xl font-bold uppercase tracking-[0.15em] text-white/90">aditikamath06@gmail.com</span>
+                 <a href="mailto:aditikamath06@gmail.com" className="text-xl md:text-2xl font-bold uppercase tracking-[0.15em] text-white/90 hover:text-white transition-colors cursor-pointer">aditikamath06@gmail.com</a>
                  <span className="text-2xl text-white/50">✦</span>
                </div>
              ))}
@@ -331,7 +331,7 @@ export default function AditiPortfolio({ onBack }) {
                  <a href="https://www.linkedin.com/in/aditi-kamath-a-235032359" target="_blank" rel="noreferrer" className="w-14 h-14 border-2 border-white rounded-xl flex items-center justify-center hover:bg-white hover:text-[#FF3B3B] transition-colors" title="LinkedIn">
                    <Linkedin size={28} />
                  </a>
-                 <a href="https://wa.me/918618693942" target="_blank" rel="noreferrer" className="w-14 h-14 border-2 border-white rounded-xl flex items-center justify-center hover:bg-white hover:text-[#FF3B3B] transition-colors" title="WhatsApp">
+                 <a href="https://wa.me/918618693942?text=Hi%20Aditi%2C%20I%20would%20like%20to%20connect%20with%20you%21" target="_blank" rel="noreferrer" className="w-14 h-14 border-2 border-white rounded-xl flex items-center justify-center hover:bg-white hover:text-[#FF3B3B] transition-colors" title="WhatsApp">
                    <MessageCircle size={28} />
                  </a>
                  <a href="tel:+918618693942" className="w-14 h-14 border-2 border-white rounded-xl flex items-center justify-center hover:bg-white hover:text-[#FF3B3B] transition-colors" title="Call Me">
