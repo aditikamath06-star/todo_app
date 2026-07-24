@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Linkedin, Github, Download, Mail, ExternalLink, ArrowUp, Menu, X, Phone } from 'lucide-react';
+import { ArrowLeft, Linkedin, Github, Download, Mail, ExternalLink, ArrowUp, Menu, X, Phone, Moon, Sun } from 'lucide-react';
 import { FaJava, FaPython, FaReact, FaDatabase, FaGithub, FaGoogle } from 'react-icons/fa';
 import { SiC, SiFlask, SiFirebase } from 'react-icons/si';
 import { VscTerminal, VscGlobe } from 'react-icons/vsc';
@@ -16,6 +16,7 @@ const WhatsappIcon = ({ size = 24, className = "" }) => (
 export default function AditiPortfolio({ onBack }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('about');
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const navLinks = [
     { name: "About", href: "#about" },
@@ -98,10 +99,11 @@ export default function AditiPortfolio({ onBack }) {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FFF8F3] text-slate-900 font-sans relative">
-      
-      {/* Subtle Dot Pattern Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#F8EBE3 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+    <div className={isDarkMode ? 'dark' : ''}>
+      <div className="min-h-screen bg-[#FFF8F3] dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300 font-sans relative">
+        
+        {/* Subtle Dot Pattern Background */}
+        <div className="absolute inset-0 z-0 pointer-events-none dark:opacity-10" style={{ backgroundImage: 'radial-gradient(#F8EBE3 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 pt-8 pb-32">
         
@@ -119,20 +121,28 @@ export default function AditiPortfolio({ onBack }) {
               <a 
                 key={link.name} 
                 href={link.href} 
-                className={`text-[15px] font-medium transition-colors ${activeSection === link.href.substring(1) ? 'text-[#FF3B3B]' : 'text-slate-600 hover:text-[#FF3B3B]'}`}
+                className={`text-[15px] font-medium transition-colors ${activeSection === link.href.substring(1) ? 'text-[#FF3B3B]' : 'text-slate-600 dark:text-slate-400 hover:text-[#FF3B3B] dark:hover:text-[#FF3B3B]'}`}
               >
                 {link.name}
               </a>
             ))}
           </nav>
 
-          {/* Mobile Nav Toggle */}
-          <button 
-            className="md:hidden text-slate-900"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+          {/* Theme Toggle & Mobile Nav Toggle */}
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="p-2 text-slate-600 dark:text-slate-300 hover:text-[#FF3B3B] dark:hover:text-[#FF3B3B] transition-colors"
+            >
+              {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
+            </button>
+            <button 
+              className="md:hidden text-slate-900 dark:text-slate-100"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
         </header>
 
         {/* Mobile Menu */}
@@ -142,14 +152,14 @@ export default function AditiPortfolio({ onBack }) {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="absolute top-24 left-6 right-6 bg-white shadow-2xl rounded-2xl p-6 flex flex-col gap-4 z-50 border border-slate-100 md:hidden"
+              className="absolute top-24 left-6 right-6 bg-white dark:bg-slate-900 shadow-2xl rounded-2xl p-6 flex flex-col gap-4 z-50 border border-slate-100 dark:border-slate-800 md:hidden"
             >
               {navLinks.map((link) => (
                 <a 
                   key={link.name} 
                   href={link.href} 
                   onClick={() => setIsMenuOpen(false)}
-                  className="text-lg font-bold text-slate-800 hover:text-[#FF3B3B] transition-colors"
+                  className="text-lg font-bold text-slate-800 dark:text-slate-100 hover:text-[#FF3B3B] dark:hover:text-[#FF3B3B] transition-colors"
                 >
                   {link.name}
                 </a>
@@ -169,19 +179,19 @@ export default function AditiPortfolio({ onBack }) {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="text-5xl md:text-7xl font-extrabold text-black leading-[1.1] tracking-tight mb-6"
+                  className="text-5xl md:text-7xl font-extrabold text-black dark:text-white leading-[1.1] tracking-tight mb-6 transition-colors duration-300"
                 >
                   Hi, I'm <br />
                   <span className="text-[#FF3B3B]">A</span>diti <span className="text-[#FF3B3B]">K</span>amath.
                 </motion.h1>
-                <p className="text-lg md:text-xl text-slate-600 leading-relaxed mb-8 max-w-xl">
+                <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-8 max-w-xl transition-colors duration-300">
                   B.E. in Computer Science. Passionate about designing scalable systems, robust databases, and full-stack applications.
                 </p>
                 <div className="flex gap-4">
                   <a href="/AditiKamathResume_pdf.pdf" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#FF3B3B] text-white font-bold hover:bg-[#E02929] transition-all shadow-[0_4px_14px_0_rgba(255,59,59,0.39)]">
                     <Download size={18} /> Download Resume
                   </a>
-                  <a href="https://github.com/aditikamath06-star" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-full bg-white border border-slate-200 text-slate-700 font-bold hover:border-slate-300 transition-all shadow-sm">
+                  <a href="https://github.com/aditikamath06-star" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold hover:border-slate-300 dark:hover:border-slate-500 transition-all shadow-sm">
                     <Github size={18} /> GitHub
                   </a>
                 </div>
@@ -195,8 +205,8 @@ export default function AditiPortfolio({ onBack }) {
                   className="w-[280px] h-[280px] md:w-[360px] md:h-[360px] relative group cursor-pointer"
                 >
                   {/* Photo with white frame */}
-                  <div className="w-full h-full rounded-3xl shadow-2xl bg-white p-2 absolute inset-0 z-10">
-                    <img src="/aditi.jpeg" alt="Aditi Kamath" className="w-full h-full object-cover rounded-[1.25rem] bg-slate-100" />
+                  <div className="w-full h-full rounded-3xl shadow-2xl bg-white dark:bg-slate-900 p-2 absolute inset-0 z-10 transition-colors duration-300">
+                    <img src="/aditi.jpeg" alt="Aditi Kamath" className="w-full h-full object-cover rounded-[1.25rem] bg-slate-100 dark:bg-slate-800" />
                   </div>
                   
                   {/* Hover Corners */}
@@ -211,15 +221,15 @@ export default function AditiPortfolio({ onBack }) {
 
           {/* Experience Section */}
           <section id="experience" className="scroll-mt-32">
-             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-16 text-center md:text-left">Experience</h2>
+             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-16 text-center md:text-left transition-colors duration-300">Experience</h2>
              
-             <div className="bg-white rounded-[2rem] p-8 md:p-12 shadow-sm border border-slate-100 mb-16">
+             <div className="bg-white dark:bg-slate-900 rounded-[2rem] p-8 md:p-12 shadow-sm border border-slate-100 dark:border-slate-800 mb-16 transition-colors duration-300">
                <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                 <h3 className="text-2xl font-bold text-slate-900">Backend Developer Intern</h3>
-                 <span className="inline-block px-4 py-2 mt-4 md:mt-0 bg-[#FFF8F3] text-[#FF3B3B] font-bold rounded-full text-sm">Present</span>
+                 <h3 className="text-2xl font-bold text-slate-900 dark:text-white transition-colors duration-300">Backend Developer Intern</h3>
+                 <span className="inline-block px-4 py-2 mt-4 md:mt-0 bg-[#FFF8F3] dark:bg-slate-800 text-[#FF3B3B] font-bold rounded-full text-sm transition-colors duration-300">Present</span>
                </div>
-               <h4 className="text-xl font-bold text-slate-700 mb-6">CUBERA ADTECH AND BIG DATA COMPANY</h4>
-               <p className="text-slate-600 leading-relaxed text-lg">
+               <h4 className="text-xl font-bold text-slate-700 dark:text-slate-300 mb-6 transition-colors duration-300">CUBERA ADTECH AND BIG DATA COMPANY</h4>
+               <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-lg transition-colors duration-300">
                  Working as a backend developer intern, contributing to the development of scalable data processing pipelines and adtech solutions.
                </p>
              </div>
@@ -227,7 +237,7 @@ export default function AditiPortfolio({ onBack }) {
 
           {/* Projects Section */}
           <section id="projects" className="scroll-mt-32">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-16 text-center md:text-left">Projects</h2>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-16 text-center md:text-left transition-colors duration-300">Projects</h2>
             
             <div className="grid md:grid-cols-2 gap-10 md:gap-14">
               {projects.map((proj, i) => (
@@ -247,7 +257,7 @@ export default function AditiPortfolio({ onBack }) {
                      />
                      <div className="absolute top-6 right-6 flex gap-2">
                         {proj.github && (
-                          <a href={proj.github} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-slate-800 shadow-xl hover:scale-110 transition-transform z-10">
+                          <a href={proj.github} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-800 dark:text-slate-200 shadow-xl hover:scale-110 transition-transform z-10">
                             <Github size={20} />
                           </a>
                         )}
@@ -268,8 +278,8 @@ export default function AditiPortfolio({ onBack }) {
                     ))}
                   </div>
 
-                  <h3 className="text-2xl font-bold text-slate-900 mb-3">{proj.title}</h3>
-                  <p className="text-slate-600 leading-relaxed text-lg">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 transition-colors duration-300">{proj.title}</h3>
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-lg transition-colors duration-300">
                     {proj.desc}
                   </p>
                 </motion.div>
@@ -279,11 +289,11 @@ export default function AditiPortfolio({ onBack }) {
 
           {/* Skills Section */}
           <section id="skills" className="scroll-mt-32">
-             <div className="bg-white rounded-[3rem] p-10 md:p-16 shadow-sm border border-slate-100">
-               <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-10 text-center">Tech Stack & Tools</h2>
+             <div className="bg-white dark:bg-slate-900 rounded-[3rem] p-10 md:p-16 shadow-sm border border-slate-100 dark:border-slate-800 transition-colors duration-300">
+               <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-10 text-center transition-colors duration-300">Tech Stack & Tools</h2>
                <div className="flex flex-wrap justify-center gap-4">
                  {tools.map((tool, i) => (
-                   <div key={i} className="flex items-center gap-2 px-6 py-3 bg-[#FFF8F3] border border-slate-200 text-slate-700 font-bold rounded-full text-lg hover:border-[#FF3B3B] hover:text-[#FF3B3B] transition-colors cursor-default">
+                   <div key={i} className="flex items-center gap-2 px-6 py-3 bg-[#FFF8F3] dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-full text-lg hover:border-[#FF3B3B] dark:hover:border-[#FF3B3B] hover:text-[#FF3B3B] dark:hover:text-[#FF3B3B] transition-colors cursor-default">
                      <span className="text-xl">{tool.icon}</span>
                      <span>{tool.name}</span>
                    </div>
@@ -296,7 +306,7 @@ export default function AditiPortfolio({ onBack }) {
           <section id="education" className="scroll-mt-32">
              <div className="grid md:grid-cols-2 gap-12">
                <div>
-                 <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-8">Education</h2>
+                 <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-8 transition-colors duration-300">Education</h2>
                  <motion.div
                   initial="hidden"
                   whileInView="visible"
@@ -312,9 +322,9 @@ export default function AditiPortfolio({ onBack }) {
                         transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
                         className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
                      ></motion.div>
-                     <h3 className="text-xl font-bold text-slate-900 mb-1">B.E. Computer Science</h3>
+                     <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1 transition-colors duration-300">B.E. Computer Science</h3>
                      <p className="text-[#FF3B3B] font-bold mb-3">BMS College of Engineering</p>
-                     <p className="text-slate-600 leading-relaxed">
+                     <p className="text-slate-600 dark:text-slate-400 leading-relaxed transition-colors duration-300">
                        Coursework across Data Structures, DBMS, Operating Systems, and Software Engineering. Organized a college-wide Blood Donation Camp.
                      </p>
                   </div>
@@ -324,7 +334,7 @@ export default function AditiPortfolio({ onBack }) {
                         transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
                         className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
                      ></motion.div>
-                     <h3 className="text-xl font-bold text-slate-900 mb-1">Pre-University Education</h3>
+                     <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1 transition-colors duration-300">Pre-University Education</h3>
                      <p className="text-[#FF3B3B] font-bold mb-3">RV PU College</p>
                   </div>
                   <div className="pl-6 border-l-2 border-[#FF3B3B]/30 relative mt-8">
@@ -333,21 +343,21 @@ export default function AditiPortfolio({ onBack }) {
                         transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
                         className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
                      ></motion.div>
-                     <h3 className="text-xl font-bold text-slate-900 mb-1">High School</h3>
+                     <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1 transition-colors duration-300">High School</h3>
                      <p className="text-[#FF3B3B] font-bold mb-3">N.E.T Public School (ICSE Board)</p>
                   </div>
                 </motion.div>
                </div>
                
                <div>
-                 <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-8">Certifications</h2>
+                 <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-8 transition-colors duration-300">Certifications</h2>
                  <div className="flex flex-col gap-6">
                    {certifications.map((cert, i) => (
-                      <div key={i} className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-start gap-4 relative group">
+                      <div key={i} className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-start gap-4 relative group transition-colors duration-300">
                         <div className="shrink-0">{cert.icon}</div>
                         <div>
-                          <h3 className="text-lg font-bold text-slate-900 pr-8">{cert.title}</h3>
-                          <p className="text-slate-500">{cert.subtitle}</p>
+                          <h3 className="text-lg font-bold text-slate-900 dark:text-white pr-8 transition-colors duration-300">{cert.title}</h3>
+                          <p className="text-slate-500 dark:text-slate-400 transition-colors duration-300">{cert.subtitle}</p>
                         </div>
                         {cert.link && (
                           <a href={cert.link} target="_blank" rel="noreferrer" className="absolute top-6 right-6 text-slate-400 hover:text-[#FF3B3B] transition-colors">
@@ -400,10 +410,10 @@ export default function AditiPortfolio({ onBack }) {
            </div>
 
         </div>
-        <div className="bg-[#FFF8F3] text-center py-6">
+        <div className="bg-[#FFF8F3] dark:bg-slate-950 text-center py-6 transition-colors duration-300">
            <a 
               href="#" 
-              className="inline-flex items-center justify-center w-12 h-12 bg-slate-900 text-white rounded-full hover:-translate-y-1 transition-transform shadow-lg mx-auto"
+              className="inline-flex items-center justify-center w-12 h-12 bg-slate-900 dark:bg-slate-800 text-white rounded-full hover:-translate-y-1 transition-transform shadow-lg mx-auto"
               title="Go to top"
             >
               <ArrowUp size={20} />
@@ -411,6 +421,7 @@ export default function AditiPortfolio({ onBack }) {
             <p className="text-slate-400 font-bold mt-4">Made with ❤️ by Aditi Kamath</p>
         </div>
       </footer>
+      </div>
     </div>
   );
 }
