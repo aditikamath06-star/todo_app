@@ -212,7 +212,7 @@ export default function Portfolio({ onBack }) {
         </aside>
 
       {/* Main Content */}
-      <main className="flex-1 px-5 md:px-16 py-12 md:py-24 md:ml-24 max-w-5xl mx-auto flex flex-col gap-32">
+      <main className="px-5 md:px-16 py-12 md:py-24 max-w-5xl mx-auto flex flex-col gap-32 relative z-10">
         
         {/* Hero Section */}
         <section id="about" className="flex flex-col-reverse md:flex-row items-center gap-16 md:gap-8 min-h-[60vh] pt-8">
