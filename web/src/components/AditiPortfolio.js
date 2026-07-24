@@ -43,7 +43,7 @@ export default function AditiPortfolio({ onBack }) {
       tags: ["React", "Flask", "MySQL", "REST APIs"],
       github: "https://github.com/aditikamath06-star/BookMySpace", // Add valid github link if possible
       color: "bg-blue-100",
-      image: "/bookmyspace.png"
+      image: "/bms_login.png"
     },
     {
       title: "Todo App",
