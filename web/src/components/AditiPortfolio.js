@@ -313,7 +313,7 @@ export default function AditiPortfolio({ onBack }) {
             >
               <ArrowUp size={20} />
             </a>
-            <p className="text-slate-400 font-bold mt-4">© {new Date().getFullYear()} Aditi Kamath</p>
+            <p className="text-slate-400 font-bold mt-4">Made with ❤️ by Aditi</p>
         </div>
       </footer>
     </div>
