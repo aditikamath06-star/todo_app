@@ -95,6 +95,10 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
               src="/premium-todo.png" 
               alt="Task Management 3D Illustration" 
               className="w-full h-full object-contain drop-shadow-2xl relative z-10 scale-110"
+              style={{ 
+                WebkitMaskImage: 'radial-gradient(circle at center, black 55%, transparent 72%)', 
+                maskImage: 'radial-gradient(circle at center, black 55%, transparent 72%)' 
+              }}
             />
           </motion.div>
           
@@ -149,6 +153,10 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
               src="/premium-todo.png" 
               alt="3D Illustration" 
               className="w-20 h-20 object-contain drop-shadow-xl"
+              style={{ 
+                WebkitMaskImage: 'radial-gradient(circle at center, black 55%, transparent 75%)', 
+                maskImage: 'radial-gradient(circle at center, black 55%, transparent 75%)' 
+              }}
             />
             <div className="flex flex-col items-start justify-center">
               <h1 className="text-3xl font-bold text-white tracking-tight mb-1">TodoList</h1>
