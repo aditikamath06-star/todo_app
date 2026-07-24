@@ -42,7 +42,8 @@ export default function AditiPortfolio({ onBack }) {
       fullDesc: "A centralized booking system for labs, classrooms, and auditoriums. Real-time schedule visibility, admin management, and approval workflows — replacing manual, paper-based venue booking.",
       tags: ["React", "Flask", "MySQL", "REST APIs"],
       github: "https://github.com/aditikamath06-star/BookMySpace", // Add valid github link if possible
-      color: "bg-blue-100"
+      color: "bg-blue-100",
+      image: "/bookmyspace.png"
     },
     {
       title: "Todo App",
@@ -51,7 +52,8 @@ export default function AditiPortfolio({ onBack }) {
       tags: ["React", "Firebase", "Firestore", "Google OAuth"],
       github: "https://github.com/aditikamath06-star/todo_app",
       link: "https://todo-app-afe02.web.app",
-      color: "bg-[#2A1B3D]"
+      color: "bg-[#2A1B3D]",
+      image: "/todoapp.png"
     }
   ];
 
@@ -163,7 +165,7 @@ export default function AditiPortfolio({ onBack }) {
 
           {/* Projects Section */}
           <section id="projects" className="scroll-mt-32">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-16 text-center md:text-left">Selected Work</h2>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-16 text-center md:text-left">Projects</h2>
             
             <div className="grid md:grid-cols-2 gap-10 md:gap-14">
               {projects.map((proj, i) => (
@@ -175,13 +177,12 @@ export default function AditiPortfolio({ onBack }) {
                   transition={{ delay: i * 0.1 }}
                   className="flex flex-col group"
                 >
-                  <div className={`w-full aspect-[4/3] rounded-[2rem] ${proj.color} mb-6 overflow-hidden relative shadow-sm border border-black/5`}>
-                     {/* Placeholder graphic for project since we don't have images */}
-                     <div className="absolute inset-0 flex items-center justify-center opacity-30 group-hover:scale-105 transition-transform duration-700">
-                        <div className="text-[120px] font-black text-black/20 mix-blend-overlay uppercase tracking-tighter leading-none -rotate-12">
-                          {proj.title.substring(0, 4)}
-                        </div>
-                     </div>
+                  <div className={`w-full aspect-[4/3] rounded-[2rem] ${proj.color} mb-6 overflow-hidden relative shadow-sm border border-black/5 group`}>
+                     <img 
+                       src={proj.image} 
+                       alt={proj.title} 
+                       className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" 
+                     />
                      <div className="absolute top-6 right-6 flex gap-2">
                         {proj.github && (
                           <a href={proj.github} target="_blank" rel="noreferrer" className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-slate-800 shadow-xl hover:scale-110 transition-transform z-10">
