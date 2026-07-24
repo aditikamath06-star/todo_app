@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Linkedin, Github, Download, Mail, ExternalLink, ArrowUp, Menu, X, MessageCircle, Phone } from 'lucide-react';
+import { ArrowLeft, Linkedin, Github, Download, Mail, ExternalLink, ArrowUp, Menu, X, Phone } from 'lucide-react';
+
+const WhatsappIcon = ({ size = 24, className = "" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" stroke="none" className={className}>
+    <path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.065-.301-.15-1.265-.462-2.406-1.478-.888-.79-1.492-1.768-1.667-2.067-.174-.3-.02-.462.13-.611.135-.134.3-.346.45-.521.151-.175.2-.3.301-.502.1-.2.05-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.21 2.095 3.18 5.077 4.46 2.02.868 2.656.91 3.23.86 1.016-.089 2.21-.926 2.518-1.815.308-.889.308-1.65.215-1.815-.094-.165-.346-.255-.646-.405z"/>
+    <path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652c1.746.943 3.71 1.444 5.71 1.447h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.48-8.45zM12.046 21.626h-.004c-1.785 0-3.535-.48-5.06-1.383l-.36-.214-3.766.982.996-3.66-.235-.374a9.92 9.92 0 0 1-1.517-5.32c.002-5.462 4.456-9.914 9.927-9.914 2.654.002 5.15 1.033 7.025 2.903a9.932 9.932 0 0 1 2.905 7.021c-.002 5.462-4.456 9.915-9.911 9.945z"/>
+  </svg>
+);
 
 export default function AditiPortfolio({ onBack }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -332,7 +339,7 @@ export default function AditiPortfolio({ onBack }) {
                    <Linkedin size={28} />
                  </a>
                  <a href="https://wa.me/918618693942?text=Hi%20Aditi%2C%20I%20would%20like%20to%20connect%20with%20you%21" target="_blank" rel="noreferrer" className="w-14 h-14 border-2 border-white rounded-xl flex items-center justify-center hover:bg-white hover:text-[#FF3B3B] transition-colors" title="WhatsApp">
-                   <MessageCircle size={28} />
+                   <WhatsappIcon size={28} />
                  </a>
                  <a href="tel:+918618693942" className="w-14 h-14 border-2 border-white rounded-xl flex items-center justify-center hover:bg-white hover:text-[#FF3B3B] transition-colors" title="Call Me">
                    <Phone size={28} />
