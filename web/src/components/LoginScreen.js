@@ -64,16 +64,16 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
     : email.trim().length > 0 && username.trim().length > 0 && password.trim().length > 0;
 
   return (
-    <div className="flex flex-col xl:flex-row min-h-screen bg-[#111216] text-white overflow-x-hidden">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-[#111216] text-white overflow-x-hidden">
       
       {/* LEFT SIDE - Illustration */}
-      <div className="hidden xl:flex w-full xl:w-1/2 relative items-center justify-center bg-[#0c0d10] xl:border-r border-white/5 p-6 xl:p-12 xl:sticky xl:top-0 xl:h-screen min-h-[30vh] overflow-hidden">
+      <div className="hidden lg:flex w-full lg:w-1/2 relative items-center justify-center bg-[#0c0d10] lg:border-r border-white/5 p-4 lg:p-8 lg:sticky lg:top-0 lg:h-screen min-h-[30vh] overflow-hidden">
         {/* Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] xl:w-[600px] h-[300px] xl:h-[600px] bg-blue-600/10 rounded-full blur-[80px] xl:blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] bg-blue-600/10 rounded-full blur-[80px] lg:blur-[120px] pointer-events-none" />
         
         {/* Content */}
         <div className="relative z-10 w-full max-w-[500px] flex flex-col items-center">
-          <div className="text-center hidden xl:block mb-8">
+          <div className="text-center hidden lg:block mb-6 lg:mb-8">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/30">
                 <CheckCircle2 size={24} className="text-white" strokeWidth={2.5} />
@@ -89,7 +89,7 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-lg aspect-square"
+            className="relative z-10 w-full max-w-[400px] lg:max-w-[450px] aspect-square"
           >
             <img 
               src="/premium-todo.png" 
@@ -102,7 +102,7 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
             />
           </motion.div>
           
-          <div className="w-full hidden xl:block mt-auto pb-4">
+          <div className="w-full hidden lg:block mt-auto pb-4">
             <div className="relative flex items-center justify-center w-full mb-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-white/5"></div>
@@ -142,13 +142,13 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
       </div>
 
       {/* RIGHT SIDE - Form & Footer */}
-      <div className="w-full xl:w-1/2 flex flex-col items-center justify-between p-6 sm:p-12 relative xl:min-h-screen">
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-between p-4 lg:p-8 relative lg:min-h-screen">
         {/* Mobile-only background glow */}
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[100px] pointer-events-none xl:hidden" />
+        <div className="absolute top-0 right-0 w-full max-w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[100px] pointer-events-none lg:hidden" />
         
-        <div className="flex-1 flex flex-col w-full items-center justify-center mt-6 xl:mt-0">
+        <div className="flex-1 flex flex-col w-full items-center justify-center mt-6 lg:mt-0">
           {/* Mobile branding */}
-          <div className="xl:hidden flex items-center justify-center gap-4 mb-10">
+          <div className="lg:hidden flex items-center justify-center gap-4 mb-8">
             <img 
               src="/premium-todo.png" 
               alt="3D Illustration" 
@@ -168,14 +168,14 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full max-w-[480px] relative z-10 bg-[#1a1b23] border border-white/5 p-6 sm:p-10 rounded-[2rem] shadow-2xl"
+            className="w-full max-w-[420px] relative z-10 bg-[#1a1b23] border border-white/5 p-6 lg:p-8 rounded-[2rem] shadow-2xl"
           >
 
-            <h2 className="text-[28px] xl:text-[32px] font-bold text-white mb-2 text-center xl:text-left">
+            <h2 className="text-[26px] lg:text-[28px] font-bold text-white mb-2 text-center lg:text-left">
               {isLogin ? 'Login' : 'Create an account'}
             </h2>
             
-            <p className="text-slate-400 text-sm font-medium mb-8 xl:mb-10 text-center xl:text-left">
+            <p className="text-slate-400 text-sm font-medium mb-6 lg:mb-8 text-center lg:text-left">
               {isLogin ? 'Welcome back! Please enter your details.' : 'Sign up to get started'}
             </p>
 
@@ -276,7 +276,7 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
-          className="w-full max-w-[420px] mt-16 xl:mt-12 relative z-10 xl:hidden"
+          className="w-full max-w-[400px] mt-12 relative z-10 lg:hidden"
         >
           <div className="relative flex items-center justify-center w-full mb-6">
             <div className="absolute inset-0 flex items-center">
