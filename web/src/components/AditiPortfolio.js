@@ -61,6 +61,7 @@ export default function AditiPortfolio({ onBack }) {
   const tools = ["C", "Java", "Python", "React", "DBMS / MySQL", "Operating Systems", "Flask", "Firebase", "REST APIs", "Git & GitHub"];
   
   const certifications = [
+    { title: "Git & GitHub", subtitle: "Infosys Springboard", link: "/Git_Certifications.pdf" },
     { title: "Full-Stack Web Development", subtitle: "Self-paced coursework" },
     { title: "Database Management Systems", subtitle: "BMSCE curriculum" },
     { title: "Python Programming", subtitle: "Academic + hands-on projects" }
@@ -286,10 +287,15 @@ export default function AditiPortfolio({ onBack }) {
                  <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-8">Certifications</h2>
                  <div className="flex flex-col gap-6">
                    {certifications.map((cert, i) => (
-                     <div key={i} className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-center">
-                       <h3 className="text-lg font-bold text-slate-900">{cert.title}</h3>
-                       <p className="text-slate-500">{cert.subtitle}</p>
-                     </div>
+                      <div key={i} className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-center relative group">
+                        <h3 className="text-lg font-bold text-slate-900 pr-8">{cert.title}</h3>
+                        <p className="text-slate-500">{cert.subtitle}</p>
+                        {cert.link && (
+                          <a href={cert.link} target="_blank" rel="noreferrer" className="absolute top-6 right-6 text-slate-400 hover:text-[#FF3B3B] transition-colors">
+                            <ExternalLink size={20} />
+                          </a>
+                        )}
+                      </div>
                    ))}
                  </div>
                </div>
