@@ -85,13 +85,6 @@ export default function AditiPortfolio({ onBack }) {
         {/* Header / Navigation */}
         <header className="flex items-center justify-between mb-24 relative z-50">
           <div className="flex items-center gap-6">
-            <button 
-              onClick={onBack}
-              className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-slate-200 shadow-sm text-slate-500 hover:text-[#FF3B3B] hover:border-[#FF3B3B] transition-all"
-              title="Back to App"
-            >
-              <ArrowLeft size={18} />
-            </button>
             <a href="#" className="text-xl md:text-2xl font-bold tracking-[0.2em] text-[#FF3B3B] uppercase">
               AditiKamath
             </a>
