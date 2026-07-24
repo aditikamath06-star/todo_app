@@ -94,8 +94,7 @@ export default function AditiPortfolio({ onBack }) {
   ];
   
   const certifications = [
-    { title: "Git & GitHub", icon: <FaGithub className="text-[#FF3B3B] mt-1" size={24} />, subtitle: "Infosys Springboard", link: "/Git_Certifications.pdf" },
-    { title: "Full-Stack Web Development", icon: <VscGlobe className="text-[#FF3B3B] mt-1" size={24} />, subtitle: "Self-paced coursework" }
+    { title: "Git & GitHub", icon: <FaGithub className="text-[#FF3B3B] mt-1" size={24} />, subtitle: "Infosys Springboard", link: "/Git_Certifications.pdf" }
   ];
 
   return (
