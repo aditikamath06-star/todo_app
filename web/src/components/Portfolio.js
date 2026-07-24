@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Linkedin, Github, Download, Mail, ChevronRight, Menu, X, Code2, Layout, Database, Smartphone, ArrowUp, Phone, Sun, Moon } from 'lucide-react';
+import { ArrowLeft, Linkedin, Github, Download, Mail, ChevronRight, Menu, X, Code2, Layout, Database, Smartphone, ArrowUp, Phone, Sun, Moon, ExternalLink } from 'lucide-react';
 
 export default function Portfolio({ onBack }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -108,6 +108,7 @@ export default function Portfolio({ onBack }) {
     {
       title: "TodoList",
       link: "https://github.com/aditikamath06-star/todo_app",
+      liveLink: "https://todo-app-afe02.web.app/#",
       tech: "React, Tailwind CSS",
       desc: "A modern, responsive task management application with a beautiful dark/light theme, built to boost productivity and manage daily tasks efficiently."
     }
@@ -380,9 +381,16 @@ export default function Portfolio({ onBack }) {
                   <div className="text-xs font-semibold text-blue-400 mb-2">{proj.tech}</div>
                 </div>
                 <p className="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-grow">{proj.desc}</p>
-                <a href={proj.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
-                  View Source <Github size={16} />
-                </a>
+                <div className="flex flex-wrap items-center gap-6 mt-auto pt-2">
+                  <a href={proj.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+                    View Source <Github size={16} />
+                  </a>
+                  {proj.liveLink && (
+                    <a href={proj.liveLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors">
+                      Visit Site <ExternalLink size={16} />
+                    </a>
+                  )}
+                </div>
               </motion.div>
             ))}
           </div>

@@ -377,17 +377,21 @@ export default function App() {
 
 
 
-  const [showPortfolio, setShowPortfolio] = useState(false);
-  const [showAditiPortfolio, setShowAditiPortfolio] = useState(false);
+  const [currentView, setCurrentView] = useState(() => sessionStorage.getItem('currentView') || 'app');
 
-  if (showPortfolio) return <Portfolio onBack={() => setShowPortfolio(false)} />;
-  if (showAditiPortfolio) return <AditiPortfolio onBack={() => setShowAditiPortfolio(false)} />;
+  const setView = (view) => {
+    setCurrentView(view);
+    sessionStorage.setItem('currentView', view);
+  };
+
+  if (currentView === 'portfolio') return <Portfolio onBack={() => setView('app')} />;
+  if (currentView === 'aditi_portfolio') return <AditiPortfolio onBack={() => setView('app')} />;
 
   if (!isLoggedIn) return (
     <LoginScreen 
       onLoginSuccess={() => setIsLoggedIn(true)} 
-      onShowPortfolio={() => setShowPortfolio(true)} 
-      onShowAditiPortfolio={() => setShowAditiPortfolio(true)}
+      onShowPortfolio={() => setView('portfolio')} 
+      onShowAditiPortfolio={() => setView('aditi_portfolio')}
     />
   );
 
