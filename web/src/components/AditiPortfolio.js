@@ -161,8 +161,8 @@ export default function AditiPortfolio({ onBack }) {
                   transition={{ duration: 0.8, ease: "easeOut" }}
                   className="text-5xl md:text-7xl font-extrabold text-black leading-[1.1] tracking-tight mb-6"
                 >
-                  Hi, I'm Aditi <br className="hidden md:block"/>
-                  Kamath.
+                  Hi, I'm <br />
+                  <span className="text-[#FF3B3B]">A</span>diti <span className="text-[#FF3B3B]">K</span>amath.
                 </motion.h1>
                 <p className="text-lg md:text-xl text-slate-600 leading-relaxed mb-8 max-w-xl">
                   B.E. in Computer Science. Passionate about designing scalable systems, robust databases, and full-stack applications.
