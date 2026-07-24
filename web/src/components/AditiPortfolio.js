@@ -258,6 +258,16 @@ export default function AditiPortfolio({ onBack }) {
                       Coursework across Data Structures, DBMS, Operating Systems, and Software Engineering. Organized a college-wide Blood Donation Camp.
                     </p>
                  </div>
+                 <div className="pl-6 border-l-2 border-[#FF3B3B]/30 relative mt-8">
+                    <div className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"></div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-1">Pre-University Education</h3>
+                    <p className="text-[#FF3B3B] font-bold mb-3">RV PU College</p>
+                 </div>
+                 <div className="pl-6 border-l-2 border-[#FF3B3B]/30 relative mt-8">
+                    <div className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"></div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-1">High School</h3>
+                    <p className="text-[#FF3B3B] font-bold mb-3">N.E.T Public School (ICSE Board)</p>
+                 </div>
                </div>
                
                <div>
@@ -313,7 +323,7 @@ export default function AditiPortfolio({ onBack }) {
             >
               <ArrowUp size={20} />
             </a>
-            <p className="text-slate-400 font-bold mt-4">Made with ❤️ by Aditi</p>
+            <p className="text-slate-400 font-bold mt-4">Made with ❤️ by Aditi Kamath</p>
         </div>
       </footer>
     </div>
