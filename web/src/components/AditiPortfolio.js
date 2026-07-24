@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Linkedin, Github, Download, Mail, ExternalLink, ArrowUp, Menu, X } from 'lucide-react';
+import { ArrowLeft, Linkedin, Github, Download, Mail, ExternalLink, ArrowUp, Menu, X, MessageCircle, Phone } from 'lucide-react';
 
 export default function AditiPortfolio({ onBack }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -326,10 +326,18 @@ export default function AditiPortfolio({ onBack }) {
            `}</style>
 
            <div className="flex flex-col items-center mt-4">
-             <p className="text-white/80 font-bold tracking-widest uppercase text-sm mb-4">Find me on LinkedIn</p>
-             <a href="https://www.linkedin.com/in/aditi-kamath-a-235032359" target="_blank" rel="noreferrer" className="w-14 h-14 border-2 border-white rounded-xl flex items-center justify-center hover:bg-white hover:text-[#FF3B3B] transition-colors">
-               <Linkedin size={28} />
-             </a>
+             <p className="text-white/80 font-bold tracking-widest uppercase text-sm mb-4">Let's Connect</p>
+             <div className="flex gap-4">
+                 <a href="https://www.linkedin.com/in/aditi-kamath-a-235032359" target="_blank" rel="noreferrer" className="w-14 h-14 border-2 border-white rounded-xl flex items-center justify-center hover:bg-white hover:text-[#FF3B3B] transition-colors" title="LinkedIn">
+                   <Linkedin size={28} />
+                 </a>
+                 <a href="https://wa.me/918618693942" target="_blank" rel="noreferrer" className="w-14 h-14 border-2 border-white rounded-xl flex items-center justify-center hover:bg-white hover:text-[#FF3B3B] transition-colors" title="WhatsApp">
+                   <MessageCircle size={28} />
+                 </a>
+                 <a href="tel:+918618693942" className="w-14 h-14 border-2 border-white rounded-xl flex items-center justify-center hover:bg-white hover:text-[#FF3B3B] transition-colors" title="Call Me">
+                   <Phone size={28} />
+                 </a>
+             </div>
            </div>
 
         </div>
