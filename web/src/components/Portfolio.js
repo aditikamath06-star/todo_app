@@ -131,8 +131,8 @@ export default function Portfolio({ onBack }) {
       </a>
 
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex flex-col w-56 h-screen fixed left-0 top-0 py-20 px-6 border-r border-white/5 bg-[#0a0a0a]/90 backdrop-blur-xl z-40">
-        <div className="mb-12 px-2">
+      <aside className="hidden md:flex flex-col w-56 h-screen fixed left-0 top-0 py-20 px-8 border-r border-white/5 bg-[#0a0a0a]/90 backdrop-blur-xl z-40">
+        <div className="mb-12 flex flex-col items-start">
             <button 
               onClick={onBack}
               className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group text-sm font-medium mb-8"
@@ -151,7 +151,7 @@ export default function Portfolio({ onBack }) {
                 <a 
                   key={link.name} 
                   href={link.href} 
-                  className={`flex items-center px-4 py-3 rounded-xl text-sm font-bold tracking-wider transition-all duration-300 ${isActive ? 'bg-blue-500/10 text-blue-400' : 'text-slate-500 hover:bg-white/5 hover:text-slate-300'}`}
+                  className={`flex items-center px-4 py-3 -mx-4 rounded-xl text-sm font-bold tracking-wider transition-all duration-300 ${isActive ? 'bg-blue-500/10 text-blue-400' : 'text-slate-500 hover:bg-white/5 hover:text-slate-300'}`}
                 >
                   {link.name}
                 </a>
