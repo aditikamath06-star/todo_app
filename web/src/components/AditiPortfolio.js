@@ -298,7 +298,13 @@ export default function AditiPortfolio({ onBack }) {
                <div>
                  <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-8">Education</h2>
                  <div className="pl-6 border-l-2 border-[#FF3B3B]/30 relative">
-                    <div className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"></div>
+                    <motion.div 
+                       initial={{ y: 40, opacity: 0 }}
+                       whileInView={{ y: 0, opacity: 1 }}
+                       viewport={{ once: true }}
+                       transition={{ duration: 0.6, type: "spring", bounce: 0.4 }}
+                       className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
+                    ></motion.div>
                     <h3 className="text-xl font-bold text-slate-900 mb-1">B.E. Computer Science</h3>
                     <p className="text-[#FF3B3B] font-bold mb-3">BMS College of Engineering</p>
                     <p className="text-slate-600 leading-relaxed">
