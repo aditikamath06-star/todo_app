@@ -121,12 +121,7 @@ export default function Portfolio({ onBack }) {
       <header className="md:hidden sticky top-0 z-50 bg-slate-50 dark:bg-[#0a0a0a]/80 backdrop-blur-md border-b border-slate-200 dark:border-white/5">
         <div className="px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <button 
-              onClick={onBack}
-              className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:text-white transition-colors group text-sm font-medium"
-            >
-              <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> App
-            </button>
+            {/* Removed top app navigation */}
           </div>
 
           <div className="flex items-center gap-4">
@@ -195,13 +190,7 @@ export default function Portfolio({ onBack }) {
 
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex flex-col w-56 h-screen fixed left-0 top-0 py-20 px-8 border-r border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-[#0a0a0a]/90 backdrop-blur-xl z-40">
-        <div className="mb-12 flex flex-col items-start">
-            <button 
-              onClick={onBack}
-              className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:text-white transition-colors group text-sm font-medium mb-8"
-            >
-              <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> App
-            </button>
+        <div className="mb-12 flex flex-col items-start mt-4">
             <a href="#" className="text-3xl font-bold text-slate-900 dark:text-white tracking-tighter hover:text-blue-400 transition-colors">
               &lt;Partha/&gt;
             </a>
@@ -472,7 +461,13 @@ export default function Portfolio({ onBack }) {
       </main>
       
       {/* Footer */}
-      <footer className="border-t border-slate-200 dark:border-white/5 py-8 text-center text-slate-500 text-sm pb-24 md:pb-8 ml-0 md:ml-64">
+      <footer className="border-t border-slate-200 dark:border-white/5 py-8 text-center text-slate-500 text-sm pb-24 md:pb-12 ml-0 md:ml-64 flex flex-col items-center">
+        <button 
+          onClick={onBack} 
+          className="mb-6 px-5 py-2.5 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 rounded-full text-xs font-bold transition-colors inline-flex items-center gap-2 border border-slate-200 dark:border-white/10 hover:-translate-y-0.5"
+        >
+          <ArrowLeft size={14} /> Get back to the app
+        </button>
         <p>Made with ❤️ by Partha B.</p>
         <p className="mt-2">Inspired by DeveloperFolio</p>
       </footer>
