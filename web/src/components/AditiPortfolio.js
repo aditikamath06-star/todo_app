@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Linkedin, Github, Download, Mail, ExternalLink, ArrowUp, Menu, X, Phone } from 'lucide-react';
-import { FaJava, FaPython, FaReact, FaDatabase, FaGithub } from 'react-icons/fa';
+import { FaJava, FaPython, FaReact, FaDatabase, FaGithub, FaGoogle } from 'react-icons/fa';
 import { SiC, SiFlask, SiFirebase } from 'react-icons/si';
-import { VscTerminal } from 'react-icons/vsc';
+import { VscTerminal, VscGlobe } from 'react-icons/vsc';
 import { TbApi } from 'react-icons/tb';
 
 const WhatsappIcon = ({ size = 24, className = "" }) => (
@@ -52,7 +52,12 @@ export default function AditiPortfolio({ onBack }) {
       title: "BookMySpace",
       desc: "Automated venue & space reservation platform",
       fullDesc: "A centralized booking system for labs, classrooms, and auditoriums. Real-time schedule visibility, admin management, and approval workflows — replacing manual, paper-based venue booking.",
-      tags: ["React", "Flask", "MySQL", "REST APIs"],
+      tags: [
+        { name: "React", icon: <FaReact /> },
+        { name: "Flask", icon: <SiFlask /> },
+        { name: "MySQL", icon: <FaDatabase /> },
+        { name: "REST APIs", icon: <TbApi /> }
+      ],
       github: "https://github.com/aditikamath06-star/BookMySpace", // Add valid github link if possible
       color: "bg-blue-100",
       image: "/bms_login.png"
@@ -61,7 +66,12 @@ export default function AditiPortfolio({ onBack }) {
       title: "Todo App",
       desc: "Real-time task management dashboard",
       fullDesc: "A productivity app with Google Sign-In, live task sync, progress dashboard, and offline fallback via local storage. Built on Firebase for seamless cross-session persistence.",
-      tags: ["React", "Firebase", "Firestore", "Google OAuth"],
+      tags: [
+        { name: "React", icon: <FaReact /> },
+        { name: "Firebase", icon: <SiFirebase /> },
+        { name: "Firestore", icon: <FaDatabase /> },
+        { name: "Google OAuth", icon: <FaGoogle /> }
+      ],
       github: "https://github.com/aditikamath06-star/todo_app",
       link: "https://todo-app-afe02.web.app",
       color: "bg-[#2A1B3D]",
@@ -83,8 +93,8 @@ export default function AditiPortfolio({ onBack }) {
   ];
   
   const certifications = [
-    { title: "Git & GitHub", subtitle: "Infosys Springboard", link: "/Git_Certifications.pdf" },
-    { title: "Full-Stack Web Development", subtitle: "Self-paced coursework" }
+    { title: "Git & GitHub", icon: <FaGithub className="text-[#FF3B3B] mt-1" size={24} />, subtitle: "Infosys Springboard", link: "/Git_Certifications.pdf" },
+    { title: "Full-Stack Web Development", icon: <VscGlobe className="text-[#FF3B3B] mt-1" size={24} />, subtitle: "Self-paced coursework" }
   ];
 
   return (
@@ -242,8 +252,9 @@ export default function AditiPortfolio({ onBack }) {
                   
                   <div className="flex flex-wrap gap-2 mb-4">
                     {proj.tags.map(tag => (
-                      <span key={tag} className="px-3 py-1 rounded-full bg-[#FF3B3B]/10 text-[#FF3B3B] text-xs font-bold uppercase tracking-wider">
-                        {tag}
+                      <span key={tag.name} className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF3B3B]/10 text-[#FF3B3B] text-xs font-bold uppercase tracking-wider">
+                        <span className="text-sm">{tag.icon}</span>
+                        {tag.name}
                       </span>
                     ))}
                   </div>
@@ -301,9 +312,12 @@ export default function AditiPortfolio({ onBack }) {
                  <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-8">Certifications</h2>
                  <div className="flex flex-col gap-6">
                    {certifications.map((cert, i) => (
-                      <div key={i} className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-center relative group">
-                        <h3 className="text-lg font-bold text-slate-900 pr-8">{cert.title}</h3>
-                        <p className="text-slate-500">{cert.subtitle}</p>
+                      <div key={i} className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-start gap-4 relative group">
+                        <div className="shrink-0">{cert.icon}</div>
+                        <div>
+                          <h3 className="text-lg font-bold text-slate-900 pr-8">{cert.title}</h3>
+                          <p className="text-slate-500">{cert.subtitle}</p>
+                        </div>
                         {cert.link && (
                           <a href={cert.link} target="_blank" rel="noreferrer" className="absolute top-6 right-6 text-slate-400 hover:text-[#FF3B3B] transition-colors">
                             <ExternalLink size={20} />
