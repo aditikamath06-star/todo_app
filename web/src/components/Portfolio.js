@@ -1,16 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Linkedin, Github, Download, Mail, ChevronRight, Menu, X, Code2, Layout, Database, Smartphone, ArrowUp } from 'lucide-react';
 
 export default function Portfolio({ onBack }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('about');
 
   const navLinks = [
+    { name: "About", href: "#about" },
     { name: "Education", href: "#education" },
     { name: "Skills", href: "#skills" },
     { name: "Experience", href: "#experience" },
     { name: "Contact", href: "#contact" }
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = navLinks.map(link => link.href.substring(1));
+      let current = '';
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 300) {
+            current = section;
+          }
+        }
+      }
+      if (current && current !== activeSection) {
+        setActiveSection(current);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [activeSection, navLinks]);
 
   const skills = [
     { name: "UI/UX Design", icon: <Layout size={24} /> },
@@ -48,9 +71,9 @@ export default function Portfolio({ onBack }) {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-slate-300 font-sans selection:bg-blue-500/30">
       
-      {/* Navbar */}
-      <header className="sticky top-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      {/* Mobile Top Bar */}
+      <header className="md:hidden sticky top-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5">
+        <div className="px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <button 
               onClick={onBack}
@@ -58,44 +81,21 @@ export default function Portfolio({ onBack }) {
             >
               <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> App
             </button>
-            <div className="h-6 w-px bg-white/10 hidden sm:block" />
-            <a href="#" className="text-2xl font-bold text-white tracking-tighter hidden sm:block">
-              &lt;Partha/&gt;
-            </a>
           </div>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a key={link.name} href={link.href} className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
-                {link.name}
-              </a>
-            ))}
-            <a 
-              href="/ParthaB_Resume.pdf" 
-              target="_blank" 
-              rel="noreferrer"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-500/10 text-blue-400 font-medium hover:bg-blue-500/20 transition-colors text-sm"
-            >
-              Resume <Download size={16} />
-            </a>
-          </nav>
-
-          {/* Mobile Menu Toggle */}
           <button 
-            className="md:hidden text-slate-400 hover:text-white"
+            className="text-slate-400 hover:text-white"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
-        {/* Mobile Nav */}
         {isMenuOpen && (
           <motion.div 
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="md:hidden absolute top-20 left-0 w-full bg-[#111] border-b border-white/5 py-4 px-6 flex flex-col gap-4 shadow-2xl"
+            className="absolute top-20 left-0 w-full bg-[#111] border-b border-white/5 py-4 px-6 flex flex-col gap-4 shadow-2xl"
           >
             {navLinks.map((link) => (
               <a 
@@ -119,10 +119,52 @@ export default function Portfolio({ onBack }) {
         )}
       </header>
 
-      <main className="max-w-6xl mx-auto px-6 py-12 md:py-24 flex flex-col gap-32">
+      {/* Desktop Resume Button (Top Right) */}
+      <a 
+        href="/ParthaB_Resume.pdf" 
+        target="_blank" 
+        rel="noreferrer"
+        className="hidden md:flex fixed top-8 right-8 z-50 items-center justify-center w-12 h-12 rounded-full bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 transition-all border border-blue-500/20 shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20 hover:scale-110"
+        title="Download Resume"
+      >
+        <Download size={20} />
+      </a>
+
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex flex-col w-56 h-screen fixed left-0 top-0 py-20 px-6 border-r border-white/5 bg-[#0a0a0a]/90 backdrop-blur-xl z-40">
+        <div className="mb-12 px-2">
+            <button 
+              onClick={onBack}
+              className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group text-sm font-medium mb-8"
+            >
+              <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> App
+            </button>
+            <a href="#" className="text-3xl font-bold text-white tracking-tighter hover:text-blue-400 transition-colors">
+              &lt;Partha/&gt;
+            </a>
+          </div>
+
+          <nav className="flex flex-col gap-2 flex-grow">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.substring(1);
+              return (
+                <a 
+                  key={link.name} 
+                  href={link.href} 
+                  className={`flex items-center px-4 py-3 rounded-xl text-sm font-bold tracking-wider transition-all duration-300 ${isActive ? 'bg-blue-500/10 text-blue-400' : 'text-slate-500 hover:bg-white/5 hover:text-slate-300'}`}
+                >
+                  {link.name}
+                </a>
+              );
+            })}
+          </nav>
+        </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 px-6 py-12 md:py-24 md:ml-56 max-w-5xl mx-auto flex flex-col gap-32">
         
         {/* Hero Section */}
-        <section className="flex flex-col-reverse md:flex-row items-center gap-16 md:gap-8 min-h-[60vh]">
+        <section id="about" className="flex flex-col-reverse md:flex-row items-center gap-16 md:gap-8 min-h-[60vh] pt-8">
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -165,13 +207,13 @@ export default function Portfolio({ onBack }) {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex-1 flex justify-center md:justify-end"
           >
-            <div className="relative w-[280px] h-[280px] md:w-[400px] md:h-[400px]">
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-emerald-500/20 rounded-full blur-3xl animate-pulse" />
-              <div className="relative w-full h-full rounded-full border-2 border-white/10 p-2 overflow-hidden bg-[#111]">
+            <div className="relative w-[280px] h-[360px] md:w-[360px] md:h-[480px] group">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-emerald-500/20 rounded-[2rem] blur-3xl animate-pulse" />
+              <div className="relative w-full h-full rounded-[2rem] border border-white/10 p-3 bg-[#111]/80 backdrop-blur-sm shadow-2xl overflow-hidden">
                 <img 
                   src="/partha.jpg?v=2" 
                   alt="Partha Balakrishna" 
-                  className="w-full h-full rounded-full object-cover"
+                  className="w-full h-full rounded-[1.5rem] object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
             </div>
@@ -311,7 +353,7 @@ export default function Portfolio({ onBack }) {
       </main>
       
       {/* Footer */}
-      <footer className="border-t border-white/5 py-8 text-center text-slate-500 text-sm pb-24 md:pb-8">
+      <footer className="border-t border-white/5 py-8 text-center text-slate-500 text-sm pb-24 md:pb-8 ml-0 md:ml-64">
         <p>Made with ❤️ by Partha B.</p>
         <p className="mt-2">Inspired by DeveloperFolio</p>
       </footer>

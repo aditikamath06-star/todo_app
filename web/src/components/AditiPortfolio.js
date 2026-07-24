@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Linkedin, Github, Download, Mail, ChevronRight, Menu, X, Code2, Database, Layout, Server, Sparkles, Heart, GraduationCap, Award, ExternalLink, ArrowUp } from 'lucide-react';
 
 export default function AditiPortfolio({ onBack }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('about');
 
   const navLinks = [
     { name: "About", href: "#about" },
@@ -13,6 +14,27 @@ export default function AditiPortfolio({ onBack }) {
     { name: "Education", href: "#education" },
     { name: "Contact", href: "#contact" }
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = navLinks.map(link => link.href.substring(1));
+      let current = '';
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 300) {
+            current = section;
+          }
+        }
+      }
+      if (current && current !== activeSection) {
+        setActiveSection(current);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [activeSection, navLinks]);
 
   const tools = [
     { name: "C", icon: <Code2 size={18} /> },
@@ -63,9 +85,21 @@ export default function AditiPortfolio({ onBack }) {
       </div>
 
       <div className="relative z-10">
-        {/* Navbar */}
-        <header className="sticky top-0 z-50 bg-[#070913]/60 backdrop-blur-xl border-b border-white/5">
-          <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+        
+        {/* Desktop Resume Button (Top Right) */}
+        <a 
+          href="/AditiKamathResume_pdf.pdf" 
+          target="_blank" 
+          rel="noreferrer"
+          className="hidden md:flex fixed top-8 right-8 z-50 items-center justify-center w-12 h-12 rounded-full bg-purple-500/10 text-purple-400 hover:bg-purple-500/20 transition-all border border-purple-500/20 shadow-lg shadow-purple-500/10 hover:shadow-purple-500/20 hover:scale-110"
+          title="Download Resume"
+        >
+          <Download size={20} />
+        </a>
+
+        {/* Mobile Top Bar */}
+        <header className="md:hidden sticky top-0 z-50 bg-[#070913]/60 backdrop-blur-xl border-b border-white/5">
+          <div className="px-6 h-20 flex items-center justify-between">
             <div className="flex items-center gap-6">
               <button 
                 onClick={onBack}
@@ -73,44 +107,21 @@ export default function AditiPortfolio({ onBack }) {
               >
                 <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> App
               </button>
-              <div className="h-6 w-px bg-white/10 hidden sm:block" />
-              <a href="#" className="text-xl font-bold text-white tracking-tight hidden sm:flex items-center gap-2">
-                <span className="text-purple-400">Aditi</span> Kamath
-              </a>
             </div>
 
-            {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <a key={link.name} href={link.href} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
-                  {link.name}
-                </a>
-              ))}
-              <a 
-                href="/AditiKamathResume_pdf.pdf" 
-                target="_blank" 
-                rel="noreferrer"
-                className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-purple-500/20 text-purple-300 font-bold hover:bg-purple-500/30 transition-colors text-sm border border-purple-500/30"
-              >
-                <Download size={16} /> Resume
-              </a>
-            </nav>
-
-            {/* Mobile Menu Toggle */}
             <button 
-              className="md:hidden text-slate-400 hover:text-white"
+              className="text-slate-400 hover:text-white"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
 
-          {/* Mobile Nav */}
           {isMenuOpen && (
             <motion.div 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="md:hidden absolute top-20 left-0 w-full bg-[#070913]/95 backdrop-blur-xl border-b border-white/5 py-4 px-6 flex flex-col gap-4 shadow-2xl"
+              className="absolute top-20 left-0 w-full bg-[#070913]/95 backdrop-blur-xl border-b border-white/5 py-4 px-6 flex flex-col gap-4 shadow-2xl"
             >
               {navLinks.map((link) => (
                 <a 
@@ -134,10 +145,41 @@ export default function AditiPortfolio({ onBack }) {
           )}
         </header>
 
-        <main className="max-w-6xl mx-auto px-6 py-12 md:py-24 flex flex-col gap-32">
-          
-          {/* Hero Section */}
-          <section id="about" className="flex flex-col-reverse md:flex-row items-center gap-16 md:gap-8 min-h-[60vh] pt-8">
+        {/* Desktop Sidebar */}
+        <aside className="hidden md:flex flex-col w-56 h-screen fixed left-0 top-0 py-20 px-6 border-r border-white/5 bg-[#070913]/90 backdrop-blur-xl z-40">
+            <div className="mb-12 px-2">
+              <button 
+                onClick={onBack}
+                className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group text-sm font-medium mb-8"
+              >
+                <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> App
+              </button>
+              <a href="#" className="text-2xl font-bold text-white tracking-tight flex items-center gap-2 hover:text-purple-400 transition-colors">
+                <span className="text-purple-400">Aditi</span> Kamath
+              </a>
+            </div>
+
+            <nav className="flex flex-col gap-2 flex-grow">
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.href.substring(1);
+                return (
+                  <a 
+                    key={link.name} 
+                    href={link.href} 
+                    className={`flex items-center px-4 py-3 rounded-xl text-sm font-bold tracking-wider transition-all duration-300 ${isActive ? 'bg-purple-500/10 text-purple-400' : 'text-slate-500 hover:bg-white/5 hover:text-slate-300'}`}
+                  >
+                    {link.name}
+                  </a>
+                );
+              })}
+            </nav>
+          </aside>
+
+          {/* Main Content */}
+          <main className="flex-1 px-6 py-12 md:py-24 md:ml-56 max-w-5xl mx-auto flex flex-col gap-32">
+            
+            {/* Hero Section */}
+            <section id="about" className="flex flex-col-reverse md:flex-row items-center gap-16 md:gap-8 min-h-[60vh] pt-8">
             <motion.div 
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -377,10 +419,10 @@ export default function AditiPortfolio({ onBack }) {
             </motion.div>
           </section>
 
-        </main>
+          </main>
         
         {/* Footer */}
-        <footer className="border-t border-white/5 py-8 text-center text-slate-500 text-sm pb-24 md:pb-8">
+        <footer className="border-t border-white/5 py-8 text-center text-slate-500 text-sm pb-24 md:pb-8 ml-0 md:ml-64">
           <p>© {new Date().getFullYear()} Aditi Kamath. All rights reserved.</p>
         </footer>
 
