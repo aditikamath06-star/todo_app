@@ -105,7 +105,7 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full max-w-[420px] relative z-10"
+            className="w-full max-w-[480px] relative z-10 bg-[#1a1b23] border border-white/5 p-8 sm:p-10 rounded-[2rem] shadow-2xl"
           >
             {/* Mobile branding */}
             <div className="lg:hidden flex flex-col items-center justify-center mb-8">
@@ -131,7 +131,7 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
               <button
                 type="button"
                 onClick={handleGoogleSignIn}
-                className="w-full h-12 bg-[#1a1b23] hover:bg-[#23242f] border border-white/5 rounded-xl flex items-center justify-center gap-3 transition-colors active:scale-[0.98]"
+                className="w-full h-12 bg-white/5 hover:bg-white/10 border border-white/5 rounded-xl flex items-center justify-center gap-3 transition-colors active:scale-[0.98]"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -147,7 +147,7 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-white/5"></div>
               </div>
-              <div className="relative px-4 text-xs font-semibold text-slate-500 bg-[#111216]">
+              <div className="relative px-4 text-xs font-semibold text-slate-500 bg-[#1a1b23]">
                 OR
               </div>
             </div>
