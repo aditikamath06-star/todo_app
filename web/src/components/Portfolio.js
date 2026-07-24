@@ -189,23 +189,22 @@ export default function Portfolio({ onBack }) {
       </div>
 
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex flex-col w-56 h-screen fixed left-0 top-0 py-20 px-8 border-r border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-[#0a0a0a]/90 backdrop-blur-xl z-40">
-        <div className="mb-12 flex flex-col items-start mt-4">
-            <a href="#" className="text-3xl font-bold text-slate-900 dark:text-white tracking-tighter hover:text-blue-400 transition-colors">
-              &lt;Partha/&gt;
-            </a>
-          </div>
-
-          <nav className="flex flex-col gap-2 flex-grow">
+      <aside className="hidden md:flex flex-col w-24 h-screen fixed left-0 top-0 py-20 px-0 border-r border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-[#0a0a0a]/90 backdrop-blur-xl z-40 items-center">
+          <nav className="flex flex-col gap-6 flex-grow items-center w-full mt-10">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.substring(1);
               return (
                 <a 
                   key={link.name} 
                   href={link.href} 
-                  className={`flex items-center px-4 py-3 rounded-xl text-sm font-bold tracking-wider transition-all duration-300 ${isActive ? 'bg-blue-500/10 text-blue-400' : 'text-slate-500 hover:bg-slate-100 dark:bg-white/5 hover:text-slate-700 dark:text-slate-300'}`}
+                  className={`flex flex-col items-center justify-center p-4 rounded-2xl font-bold tracking-widest transition-all duration-500 mx-auto w-14 overflow-hidden border border-transparent ${isActive ? 'bg-blue-500/10 text-blue-400 max-h-64 border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.15)]' : 'text-slate-500 hover:bg-slate-100 dark:bg-white/5 dark:hover:bg-white/10 hover:text-slate-700 dark:text-slate-300 max-h-14 hover:shadow-lg'}`}
                 >
-                  {link.name}
+                  <span className="text-xl uppercase">{link.name.charAt(0)}</span>
+                  <div className={`flex flex-col items-center overflow-hidden transition-all duration-500 ${isActive ? 'opacity-100 mt-3 max-h-48' : 'opacity-0 mt-0 max-h-0'}`}>
+                    {link.name.substring(1).split('').map((char, i) => (
+                      <span key={i} className="text-[10px] uppercase leading-[1.2] my-[2px] opacity-70 font-black">{char}</span>
+                    ))}
+                  </div>
                 </a>
               );
             })}
@@ -213,7 +212,7 @@ export default function Portfolio({ onBack }) {
         </aside>
 
       {/* Main Content */}
-      <main className="flex-1 px-5 md:px-16 py-12 md:py-24 md:ml-56 max-w-5xl mx-auto flex flex-col gap-32">
+      <main className="flex-1 px-5 md:px-16 py-12 md:py-24 md:ml-24 max-w-5xl mx-auto flex flex-col gap-32">
         
         {/* Hero Section */}
         <section id="about" className="flex flex-col-reverse md:flex-row items-center gap-16 md:gap-8 min-h-[60vh] pt-8">
@@ -461,12 +460,12 @@ export default function Portfolio({ onBack }) {
       </main>
       
       {/* Footer */}
-      <footer className="border-t border-slate-200 dark:border-white/5 py-8 pb-24 md:pb-12 ml-0 md:ml-56 flex flex-col items-center justify-center">
+      <footer className="w-full border-t border-slate-200 dark:border-white/5 py-12 pb-24 flex flex-col items-center justify-center relative z-10">
         <button 
           onClick={onBack} 
-          className="px-5 py-2.5 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 rounded-full text-xs font-bold transition-colors inline-flex items-center gap-2 border border-slate-200 dark:border-white/10 hover:-translate-y-0.5"
+          className="px-6 py-3 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 rounded-full text-sm font-bold transition-all inline-flex items-center gap-3 border border-slate-200 dark:border-white/10 hover:-translate-y-1 shadow-sm"
         >
-          <ArrowLeft size={14} /> Get back to the app
+          <ArrowLeft size={16} className="text-[#7c3aed]" /> Get back to the app
         </button>
       </footer>
 
