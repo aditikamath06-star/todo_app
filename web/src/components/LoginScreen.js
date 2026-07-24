@@ -138,27 +138,28 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[100px] pointer-events-none lg:hidden" />
         
         <div className="flex-1 flex flex-col w-full items-center justify-center mt-6 lg:mt-0">
+          {/* Mobile branding */}
+          <div className="lg:hidden flex flex-col items-center justify-center mb-8">
+            <div className="flex items-center gap-3 mb-2">
+              <img 
+                src="/premium-todo.png" 
+                alt="3D Illustration" 
+                className="w-12 h-12 object-contain drop-shadow-lg"
+              />
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-600/30">
+                <CheckCircle2 size={18} className="text-white" strokeWidth={2.5} />
+              </div>
+              <h1 className="text-2xl font-bold text-white tracking-tight">TodoList</h1>
+            </div>
+            <p className="text-slate-400 text-sm text-center">Manage all your daily tasks.</p>
+          </div>
+
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="w-full max-w-[480px] relative z-10 bg-[#1a1b23] border border-white/5 p-6 sm:p-10 rounded-[2rem] shadow-2xl"
           >
-            {/* Mobile branding */}
-            <div className="lg:hidden flex flex-col items-center justify-center mb-8">
-              <div className="flex items-center gap-3 mb-2">
-                <img 
-                  src="/premium-todo.png" 
-                  alt="3D Illustration" 
-                  className="w-12 h-12 object-contain drop-shadow-lg"
-                />
-                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-600/30">
-                  <CheckCircle2 size={18} className="text-white" strokeWidth={2.5} />
-                </div>
-                <h1 className="text-2xl font-bold text-white tracking-tight">TodoList</h1>
-              </div>
-              <p className="text-slate-400 text-sm text-center">Manage all your daily tasks.</p>
-            </div>
 
             <h2 className="text-[28px] lg:text-[32px] font-bold text-white mb-2 text-center lg:text-left">
               {isLogin ? 'Login' : 'Create an account'}
