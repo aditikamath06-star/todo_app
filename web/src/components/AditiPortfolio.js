@@ -301,7 +301,7 @@ export default function AditiPortfolio({ onBack }) {
                     <motion.div 
                        initial={{ y: 120, opacity: 0 }}
                        whileInView={{ y: 0, opacity: 1 }}
-                       viewport={{ once: true, margin: "-50px" }}
+                       viewport={{ once: true, margin: "-200px" }}
                        transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
                        className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
                     ></motion.div>
@@ -311,16 +311,28 @@ export default function AditiPortfolio({ onBack }) {
                       Coursework across Data Structures, DBMS, Operating Systems, and Software Engineering. Organized a college-wide Blood Donation Camp.
                     </p>
                  </div>
-                 <div className="pl-6 border-l-2 border-[#FF3B3B]/30 relative mt-8">
-                    <div className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"></div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-1">Pre-University Education</h3>
-                    <p className="text-[#FF3B3B] font-bold mb-3">RV PU College</p>
-                 </div>
-                 <div className="pl-6 border-l-2 border-[#FF3B3B]/30 relative mt-8">
-                    <div className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"></div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-1">High School</h3>
-                    <p className="text-[#FF3B3B] font-bold mb-3">N.E.T Public School (ICSE Board)</p>
-                 </div>
+                  <div className="pl-6 border-l-2 border-[#FF3B3B]/30 relative mt-8">
+                     <motion.div 
+                       initial={{ y: 120, opacity: 0 }}
+                       whileInView={{ y: 0, opacity: 1 }}
+                       viewport={{ once: true, margin: "-200px" }}
+                       transition={{ duration: 0.8, delay: 0.2, type: "spring", bounce: 0.3 }}
+                       className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
+                     ></motion.div>
+                     <h3 className="text-xl font-bold text-slate-900 mb-1">Pre-University Education</h3>
+                     <p className="text-[#FF3B3B] font-bold mb-3">RV PU College</p>
+                  </div>
+                  <div className="pl-6 border-l-2 border-[#FF3B3B]/30 relative mt-8">
+                     <motion.div 
+                       initial={{ y: 120, opacity: 0 }}
+                       whileInView={{ y: 0, opacity: 1 }}
+                       viewport={{ once: true, margin: "-200px" }}
+                       transition={{ duration: 0.8, delay: 0.4, type: "spring", bounce: 0.3 }}
+                       className="absolute w-4 h-4 bg-[#FF3B3B] rounded-full -left-[9px] top-1 border-4 border-[#FFF8F3]"
+                     ></motion.div>
+                     <h3 className="text-xl font-bold text-slate-900 mb-1">High School</h3>
+                     <p className="text-[#FF3B3B] font-bold mb-3">N.E.T Public School (ICSE Board)</p>
+                  </div>
                </div>
                
                <div>
