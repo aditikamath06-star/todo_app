@@ -192,7 +192,7 @@ export default function AditiPortfolio({ onBack }) {
                   animate={{ opacity: 1, scale: 1, rotate: 3 }}
                   whileHover={{ scale: 1.05, rotate: 0 }}
                   transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
-                  className="w-[280px] h-[280px] md:w-[360px] md:h-[360px] rounded-3xl overflow-hidden shadow-2xl bg-white p-2 cursor-pointer"
+                  className="w-[280px] h-[280px] md:w-[360px] md:h-[360px] rounded-3xl overflow-hidden shadow-2xl bg-white hover:bg-[#FF3B3B] transition-colors duration-300 p-2 cursor-pointer"
                 >
                   <img src="/aditi.jpeg" alt="Aditi Kamath" className="w-full h-full object-cover rounded-[1.25rem] bg-slate-100" />
                 </motion.div>
