@@ -261,13 +261,13 @@ export default function AditiPortfolio({ onBack }) {
 
       {/* Footer / Contact (Repeating Banner Style) */}
       <footer id="contact" className="mt-20">
-        <div className="bg-[#FF3B3B] text-white py-12 overflow-hidden flex flex-col items-center justify-center border-y-4 border-[#E02929]">
+        <div className="bg-[#FF3B3B] text-white py-8 overflow-hidden flex flex-col items-center justify-center border-y-4 border-[#E02929]">
            
-           <div className="w-[200%] md:w-[150%] flex animate-[marquee_20s_linear_infinite] whitespace-nowrap mb-8 pointer-events-none">
-             {[...Array(6)].map((_, i) => (
+           <div className="w-[200%] md:w-[150%] flex animate-[marquee_20s_linear_infinite] whitespace-nowrap mb-6 pointer-events-none">
+             {[...Array(8)].map((_, i) => (
                <div key={i} className="flex items-center gap-8 mx-4">
-                 <span className="text-3xl md:text-5xl font-black uppercase tracking-widest text-white/90">aditikamath06@gmail.com</span>
-                 <span className="text-4xl text-white/50">✦</span>
+                 <span className="text-xl md:text-2xl font-bold uppercase tracking-[0.15em] text-white/90">aditikamath06@gmail.com</span>
+                 <span className="text-2xl text-white/50">✦</span>
                </div>
              ))}
            </div>
