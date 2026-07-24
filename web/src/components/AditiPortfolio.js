@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Linkedin, Github, Download, Mail, ExternalLink, ArrowUp, Menu, X, Phone } from 'lucide-react';
+import { FaJava, FaPython, FaReact, FaDatabase, FaGithub } from 'react-icons/fa';
+import { SiC, SiFlask, SiFirebase } from 'react-icons/si';
+import { VscTerminal } from 'react-icons/vsc';
+import { TbApi } from 'react-icons/tb';
 
 const WhatsappIcon = ({ size = 24, className = "" }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" stroke="none" className={className}>
@@ -65,13 +69,22 @@ export default function AditiPortfolio({ onBack }) {
     }
   ];
 
-  const tools = ["C", "Java", "Python", "React", "DBMS / MySQL", "Operating Systems", "Flask", "Firebase", "REST APIs", "Git & GitHub"];
+  const tools = [
+    { name: "C", icon: <SiC /> },
+    { name: "Java", icon: <FaJava /> },
+    { name: "Python", icon: <FaPython /> },
+    { name: "React", icon: <FaReact /> },
+    { name: "DBMS / MySQL", icon: <FaDatabase /> },
+    { name: "Operating Systems", icon: <VscTerminal /> },
+    { name: "Flask", icon: <SiFlask /> },
+    { name: "Firebase", icon: <SiFirebase /> },
+    { name: "REST APIs", icon: <TbApi /> },
+    { name: "Git & GitHub", icon: <FaGithub /> }
+  ];
   
   const certifications = [
     { title: "Git & GitHub", subtitle: "Infosys Springboard", link: "/Git_Certifications.pdf" },
-    { title: "Full-Stack Web Development", subtitle: "Self-paced coursework" },
-    { title: "Database Management Systems", subtitle: "BMSCE curriculum" },
-    { title: "Python Programming", subtitle: "Academic + hands-on projects" }
+    { title: "Full-Stack Web Development", subtitle: "Self-paced coursework" }
   ];
 
   return (
@@ -250,8 +263,9 @@ export default function AditiPortfolio({ onBack }) {
                <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-10 text-center">Tech Stack & Tools</h2>
                <div className="flex flex-wrap justify-center gap-4">
                  {tools.map((tool, i) => (
-                   <div key={i} className="px-6 py-3 bg-[#FFF8F3] border border-slate-200 text-slate-700 font-bold rounded-full text-lg hover:border-[#FF3B3B] hover:text-[#FF3B3B] transition-colors cursor-default">
-                     {tool}
+                   <div key={i} className="flex items-center gap-2 px-6 py-3 bg-[#FFF8F3] border border-slate-200 text-slate-700 font-bold rounded-full text-lg hover:border-[#FF3B3B] hover:text-[#FF3B3B] transition-colors cursor-default">
+                     <span className="text-xl">{tool.icon}</span>
+                     <span>{tool.name}</span>
                    </div>
                  ))}
                </div>
