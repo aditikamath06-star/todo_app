@@ -216,11 +216,11 @@ export default function Portfolio({ onBack }) {
           >
             <div className="relative w-[240px] h-[300px] md:w-[360px] md:h-[480px] group">
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-emerald-500/20 rounded-[2rem] blur-3xl animate-pulse" />
-              <div className="relative w-full h-full rounded-[2rem] border border-white/10 p-3 bg-[#111]/80 backdrop-blur-sm shadow-2xl overflow-hidden">
+              <div className="relative w-full h-full rounded-[2rem] border border-white/10 shadow-2xl overflow-hidden">
                 <img 
                   src="/partha.jpg?v=2" 
                   alt="Partha Balakrishna" 
-                  className="w-full h-full rounded-[1.5rem] object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
             </div>
