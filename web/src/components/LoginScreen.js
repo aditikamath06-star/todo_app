@@ -147,6 +147,11 @@ export default function LoginScreen({ onLoginSuccess, onShowPortfolio, onShowAdi
             {/* Mobile branding */}
             <div className="lg:hidden flex flex-col items-center justify-center mb-8">
               <div className="flex items-center gap-3 mb-2">
+                <img 
+                  src="/premium-todo.png" 
+                  alt="3D Illustration" 
+                  className="w-12 h-12 object-contain drop-shadow-lg"
+                />
                 <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-600/30">
                   <CheckCircle2 size={18} className="text-white" strokeWidth={2.5} />
                 </div>
