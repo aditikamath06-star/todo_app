@@ -151,7 +151,7 @@ export default function Portfolio({ onBack }) {
                 <a 
                   key={link.name} 
                   href={link.href} 
-                  className={`flex items-center px-4 py-3 -mx-4 rounded-xl text-sm font-bold tracking-wider transition-all duration-300 ${isActive ? 'bg-blue-500/10 text-blue-400' : 'text-slate-500 hover:bg-white/5 hover:text-slate-300'}`}
+                  className={`flex items-center px-4 py-3 rounded-xl text-sm font-bold tracking-wider transition-all duration-300 ${isActive ? 'bg-blue-500/10 text-blue-400' : 'text-slate-500 hover:bg-white/5 hover:text-slate-300'}`}
                 >
                   {link.name}
                 </a>
