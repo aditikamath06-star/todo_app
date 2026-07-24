@@ -114,7 +114,7 @@ export default function Portfolio({ onBack }) {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 font-sans selection:bg-blue-500/30">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-300 font-sans selection:bg-blue-500/30 overflow-x-hidden">
       
       {/* Mobile Top Bar */}
       <header className="md:hidden sticky top-0 z-50 bg-slate-50 dark:bg-[#0a0a0a]/80 backdrop-blur-md border-b border-slate-200 dark:border-white/5">
@@ -234,7 +234,7 @@ export default function Portfolio({ onBack }) {
             className="flex-1 flex flex-col items-center md:items-start text-center md:text-left"
           >
             <h1 className="text-4xl md:text-7xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight leading-tight">
-              Hi all, I'm <span className="whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Partha B.</span>
+              Hi all, I'm <span className="whitespace-normal md:whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Partha B.</span>
             </h1>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-10 max-w-xl">
               Frontend Developer specializing in building exceptional digital experiences. 
@@ -353,7 +353,7 @@ export default function Portfolio({ onBack }) {
               className="grid grid-cols-2 sm:grid-cols-3 gap-4"
             >
               {skills.map((skill, index) => (
-                <div key={index} className="flex flex-col items-center justify-center p-6 bg-slate-100 dark:bg-white/5 rounded-2xl hover:bg-white/10 transition-colors border border-slate-200 dark:border-white/5 hover:border-slate-200 dark:border-white/10">
+                <div key={index} className="flex flex-col items-center justify-center p-4 md:p-6 bg-slate-100 dark:bg-white/5 rounded-2xl hover:bg-white/10 transition-colors border border-slate-200 dark:border-white/5 hover:border-slate-200 dark:border-white/10">
                   <div className="text-blue-400 mb-3">{skill.icon}</div>
                   <span className="text-sm font-medium text-center">{skill.name}</span>
                 </div>
@@ -423,7 +423,7 @@ export default function Portfolio({ onBack }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="max-w-2xl mx-auto bg-gradient-to-b from-blue-500/10 to-transparent rounded-3xl p-12 border border-blue-500/20"
+            className="max-w-2xl mx-auto bg-gradient-to-b from-blue-500/10 to-transparent rounded-3xl p-6 md:p-12 border border-blue-500/20"
           >
             <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-6">Reach Out to Me!</h2>
             <p className="text-slate-600 dark:text-slate-400 mb-8 text-lg">
