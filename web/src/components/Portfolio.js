@@ -387,7 +387,7 @@ export default function Portfolio({ onBack }) {
                   </a>
                   {proj.liveLink && (
                     <a href={proj.liveLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors">
-                      Live Demo <ExternalLink size={16} />
+                      Visit Site <ExternalLink size={16} />
                     </a>
                   )}
                 </div>
