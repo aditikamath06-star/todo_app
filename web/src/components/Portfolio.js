@@ -469,7 +469,6 @@ export default function Portfolio({ onBack }) {
           <ArrowLeft size={14} /> Get back to the app
         </button>
         <p>Made with ❤️ by Partha B.</p>
-        <p className="mt-2">Inspired by DeveloperFolio</p>
       </footer>
 
       {/* Scroll to top */}
